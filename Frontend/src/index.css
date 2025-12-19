@@ -1,0 +1,130 @@
+/* ============================
+   IMPORTS (MUST BE AT TOP)
+============================ */
+@import "tailwindcss";
+
+/* ============================
+   ROOT THEME COLORS
+============================ */
+:root {
+  --primary-main: #6c5b7b;
+  --primary-dark: #4e4a59;
+  --primary-light: #f8b5b1;
+
+  --bg-primary: #2e2e3c;
+  --bg-secondary: #3b3b4f;
+
+  --text-primary: #eae7e0;
+  --text-secondary: #b9a7a0;
+  --text-light: #ffffff;
+
+  --border-color: #5c4a6f;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================
+   GLOBAL RESET
+============================ */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  color: #222;
+  background-color: #fff;
+}
+
+/* ============================
+   HEADINGS
+============================ */
+h1,
+h2,
+h3,
+.heading {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  color: #111;
+}
+
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+  color: #111;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* ============================
+   TEXT + BODY ELEMENTS
+============================ */
+p,
+span,
+li,
+a,
+input,
+button {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ============================
+   SPECIAL ACCENT TEXT
+============================ */
+.accent,
+.quote,
+.emphasis-text {
+  font-family: "Lora", serif;
+  font-style: italic;
+}
+
+/* ============================
+   UI ELEMENTS
+============================ */
+button,
+.label,
+.tag {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ============================
+   SMALL TEXT
+============================ */
+.small-text,
+.caption {
+  font-size: 0.85rem;
+  color: #555;
+  font-family: "Roboto", sans-serif;
+}
+
+/* ============================
+   TOASTIFY
+============================ */
+.Toastify__toast {
+  width: 350px;
+  max-height: 20px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 15px;
+  font-family: sans-serif;
+  padding: 5px 20px;
+  font-weight: 500;
+  color: #2e2e3c;
+}

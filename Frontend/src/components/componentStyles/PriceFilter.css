@@ -1,0 +1,16 @@
+.price-slider {
+  position: relative;
+  height: 20px;
+}
+
+.price-slider input[type="range"] {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  height: 5px;
+}
+
+.price-inputs {
+  margin-bottom: 10px;
+  font-size: 14px;
+}

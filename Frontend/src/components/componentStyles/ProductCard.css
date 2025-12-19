@@ -1,0 +1,142 @@
+.product_id {
+  text-decoration: none;
+  color: inherit;
+}
+
+.add-to-cart {
+  display: block;
+  margin: auto;
+}
+
+.product-card {
+  color: var(--text-primary);
+  box-shadow: var(--shadow-md);
+  border-radius: 2px;
+  text-align: center;
+  width: 200px;
+  height: 290px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* margin: ; */
+  display: flex;
+  flex-direction: column;
+  cursor: grab;
+  padding: 5px;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-sm);
+}
+
+.product-image-card {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  max-height: 200px;
+}
+
+.product-image {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 125px;
+  width: 190px;
+  margin: 0px auto;
+}
+
+.product-details {
+  padding: 1rem;
+}
+
+.title-price {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.5rem;
+  color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--primary-main);
+}
+
+.rating_container {
+  width: 100%;
+  margin: 5px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviews {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.add-to-cart {
+  background-color: var(--primary-main);
+  color: var(--text-light);
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin: 5px auto;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-to-cart:hover {
+  background-color: var(--primary-dark);
+}
+
+@media (min-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .product-card {
+    height: 250px;
+    width: 160px;
+  }
+
+  .add-to-cart {
+    margin: 0 auto;
+  }
+
+  .rating_container {
+  }
+
+  .reviews {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .add-to-cart {
+    padding: 0.3rem 0.5rem;
+    margin: 5px auto;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

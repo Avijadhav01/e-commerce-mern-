@@ -1,0 +1,171 @@
+/* Default desktop sticky filter 
+*/
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
+  z-index: 509;
+}
+
+.overlay.show {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease, visibility 0s 0s;
+}
+
+.filter-section {
+  display: none;
+  flex: 1;
+  position: fixed;
+  top: 65px;
+  left: 0;
+  z-index: 1000;
+  height: 90vh;
+}
+
+.filter-section.active {
+  display: flex;
+}
+
+.filter-icon {
+  color: var(--primary-main);
+  /* display: flex; */
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  border-radius: 1px;
+}
+
+/* ----------------------------
+   MAIN LAYOUT 
+----------------------------- */
+
+.products-layout {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100vw;
+  margin: 0 auto;
+  gap: 20px;
+  padding: 20px;
+  background: #f5f7fa;
+  height: 100vh;
+
+  overflow-x: hidden;
+}
+
+/* ----------------------------
+   PRODUCTS CONTAINER
+----------------------------- */
+
+.product-section {
+  flex: 1;
+  width: 100%;
+  height: 80vh;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.products-product-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  width: 100vw;
+  height: 75vh;
+  max-width: 1000px;
+  padding: 1rem;
+
+  overflow-y: scroll;
+
+  /* Smooth scrolling */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #cfd8dc #f1f5f9; /* thumb | track */
+}
+
+/* Chrome, Edge, Safari */
+.products-product-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.products-product-container::-webkit-scrollbar-track {
+  background: #f1f5f9; /* very light gray */
+  border-radius: 10px;
+}
+
+.products-product-container::-webkit-scrollbar-thumb {
+  background: #cfd8dc; /* soft gray-blue */
+  border-radius: 10px;
+}
+
+.products-product-container::-webkit-scrollbar-thumb:hover {
+  background: #b0bec5; /* slightly darker on hover */
+}
+
+/* ----------------------------
+   EMPTY STATE
+----------------------------- */
+
+.no-products {
+  width: 100%;
+  height: 50vh;
+  text-align: center;
+
+  font-size: 22px;
+  font-weight: 600;
+  color: #444;
+
+  /* margin-top: 40px; */
+  padding: 10px 20px;
+
+  background: #ffffff;
+  border: 1px dashed #d0d7e2;
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* ----------------------------
+ RESPONSIVE DESIGN
+----------------------------- */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .filter-section {
+    z-index: 1000;
+    background: white;
+    border-bottom: 2px solid #ddd;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .products-product-container {
+    grid-template-columns: 1fr 1fr; /* 2 columns */
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .products-product-container {
+    grid-template-columns: 1fr; /* 1 column */
+    gap: 15px;
+    width: 100%;
+  }
+}

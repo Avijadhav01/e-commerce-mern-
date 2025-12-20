@@ -5,13 +5,13 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductDetails, removeErrors } from '../../../../New folder/features/products/productSlice.js';
+import { getProductDetails, removeErrors } from '../features/products/productSlice.js';
 import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { toast } from "react-toastify"
-import { createProductReview, getProductReviews, removeReviewErrors, removeReviewMessage } from '../../../../New folder/features/reviews/reviewSlice.js';
-import { addItemToCart, removeMessage } from '../../../../New folder/features/cart/cartSlice.js';
-import { removeErrors as cartRemoveErrors } from "../../../../New folder/features/cart/cartSlice.js"
+import { createProductReview, getProductReviews, removeReviewErrors, removeReviewMessage } from '../features/reviews/reviewSlice.js';
+import { addItemToCart, removeMessage } from '../features/cart/cartSlice.js';
+import { removeErrors as cartRemoveErrors } from "../features/cart/cartSlice.js"
 import Review from '../components/Review.jsx';
 import Pagination from '../components/Pagination.jsx';
 
@@ -131,6 +131,10 @@ function ProductDetails() {
     }
   }, [reviewSuccess, id])
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
 
   return (
     <>
@@ -214,6 +218,7 @@ function ProductDetails() {
                     placeholder='Write your review here..'
                     className='review-input'
                     onChange={(e) => setUserComment(e.target.value)}
+                    autoFocus={false}
                   >
                   </textarea>
                   <button

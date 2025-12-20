@@ -38,8 +38,8 @@
 }
 
 .product-image {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
   height: 125px;
   width: 190px;
   margin: 0px auto;

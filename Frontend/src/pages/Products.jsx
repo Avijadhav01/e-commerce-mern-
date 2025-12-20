@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import "./pageStyles/Products.css";
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, removeErrors } from '../../../../New folder/features/products/productSlice';
+import { getProducts, removeErrors } from '../features/products/productSlice';
 import { toast } from "react-toastify"
-import { unSetSearchKeyword } from "../../../../New folder/features/products/productSlice"
+import { unSetSearchKeyword } from "../features/products/productSlice"
 import { BsFilterSquare } from "react-icons/bs";
 
 import FilterSection from '../components/FilterSection';

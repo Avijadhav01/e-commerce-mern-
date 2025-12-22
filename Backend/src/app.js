@@ -3,12 +3,13 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middleware/error.middleware.js";
-
+// import dotenv from "dotenv";
 // Router imports
 import productRouter from "./routes/product.routes.js";
 import userRouter from "./routes/user.routes.js";
 import reviewRouter from "./routes/review.routes.js";
 import orderRouter from "./routes/order.routes.js";
+import paymentRouter from "./routes/payment.routes.js";
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use("/api/v1/products", productRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/payments", paymentRouter);
 
 // ⚠️ 404 handler (unknown routes)
 app.use((req, res, next) => {
@@ -45,5 +47,7 @@ app.use((req, res, next) => {
 
 // ⚠️ Error middleware (last)
 app.use(errorMiddleware);
+
+// dotenv.config({ path: "../.env" });
 
 export { app };

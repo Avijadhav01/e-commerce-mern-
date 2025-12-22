@@ -1,8 +1,8 @@
 import { app } from "./app.js";
 import dotenv from "dotenv";
 import { connectDB } from "./db/db.js";
-
-dotenv.config({ path: "./env" });
+import Razorpay from "razorpay";
+dotenv.config({ path: "../.env" });
 
 // 🔹 Handle uncaught exceptions (sync code errors)
 process.on("uncaughtException", (err) => {
@@ -17,6 +17,12 @@ app.on("error", (err) => {
 });
 
 // console.log(MY_NAME);
+
+// PAYMENT REZORPAY INSTANCE
+export const instance = new Razorpay({
+  key_id: process.env.RAZORPAY_API_KEY,
+  key_secret: process.env.RAZORPAY_API_SECRET,
+});
 
 const port = process.env.PORT || 2000;
 

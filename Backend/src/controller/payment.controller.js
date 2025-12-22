@@ -1,0 +1,88 @@
+import { instance } from "../server.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { AsyncHandler } from "../utils/AsyncHandler.js";
+import crypto from "crypto";
+
+import { Order } from "../models/order.model.js";
+import { Product } from "../models/product.model.js";
+
+const processPayment = AsyncHandler(async (req, res) => {
+  const { amount } = req.body;
+
+  if (!amount) return new ApiError("Amount is required", 400);
+
+  const options = {
+    amount: Number(amount * 100),
+    currency: "INR",
+  };
+
+  const order = await instance.orders.create(options);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, order, "Payment order created successfully"));
+});
+
+const sendApiKey = AsyncHandler(async (req, res) => {
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        process.env.RAZORPAY_API_KEY,
+        "Key fetched successfully"
+      )
+    );
+});
+
+// Payment verification
+const paymentVerification = AsyncHandler(async (req, res) => {
+  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+    req.body;
+  const orderId = req.query.orderId; // <- get orderId from query params
+
+  const body = razorpay_order_id + "|" + razorpay_payment_id;
+  const expectedSignature = crypto
+    .createHmac("sha256", process.env.RAZORPAY_API_SECRET)
+    .update(body.toString())
+    .digest("hex");
+
+  const isAuthentic = expectedSignature === razorpay_signature;
+
+  if (!isAuthentic) {
+    // Redirect to payment page with failure alert
+    return res.redirect(
+      `http://localhost:5173/order/payment?status=failed&orderId=${orderId}`
+    );
+  }
+
+  const order = await Order.findById(orderId);
+  if (!order) throw new Error("Order not found");
+
+  // Update order status
+  order.paymentInfo = {
+    id: razorpay_payment_id,
+    status: "paid",
+  };
+  order.orderStatus = "processing";
+  order.isPaid = true;
+  order.paidAt = Date.now();
+  await order.save();
+
+  for (const item of order.orderItems) {
+    const product = await Product.findById(item.product);
+    if (!product) continue; // skip if product not found
+
+    // Reduce stock
+    product.stock -= item.quantity;
+
+    // Save changes
+    await product.save({ validateBeforeSave: false });
+  }
+
+  // Redirect to success page
+  return res.redirect(`http://localhost:5173/order-success/${orderId}`);
+});
+
+export { processPayment, sendApiKey, paymentVerification };

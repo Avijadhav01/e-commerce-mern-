@@ -35,7 +35,6 @@ api.interceptors.response.use(
         isRefreshing = true;
         try {
           // Call refresh endpoint
-          console.log("Hii");
           const { data } = await api.post("/users/refresh/accessToken");
           const newToken = data?.data?.accessToken;
           if (newToken) {

@@ -135,7 +135,6 @@ function ProductDetails() {
     window.scrollTo(0, 0);
   }, [id]);
 
-
   return (
     <>
       <PageTitle title='Product - Details' />

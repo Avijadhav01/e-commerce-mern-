@@ -7,6 +7,7 @@ import CheckoutPath from './CheckoutPath';
 
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function OrderConfirm() {
 
@@ -24,16 +25,48 @@ function OrderConfirm() {
   const total = subtotal + tax + shippingCharges;
 
   const navigate = useNavigate();
-  const proceedToPayment = () => {
-    const data = {
-      subtotal,
-      tax,
-      shippingCharges,
-      total
-    }
 
-    sessionStorage.setItem("orderSummary", JSON.stringify(data))
-    navigate("/order/payment");
+  // Create order and go to payment page
+  const proceedToPayment = async () => {
+    const shippingDetails = {
+      name: user?.fullName,
+      phone: shippingInfo?.phoneNumber,
+      street: shippingInfo?.address,
+      city: shippingInfo?.city,
+      state: shippingInfo?.state,
+      country: shippingInfo?.country,
+      postalCode: shippingInfo?.pinCode,
+    }
+    const orderData = {
+      shippingAddress: shippingDetails,
+      orderItems: cartItems.map(item => ({
+        product: item.productId,
+        quantity: item.quantity,
+      })),
+    };
+
+    try {
+      // console.log(orderData);
+      // 1️⃣ Create the order in backend
+      const { data } = await axios.post("/api/v1/orders/create", orderData, {
+        headers: { Authorization: `Bearer ${user?.token}` }
+      });
+
+      // 2️⃣ Get order ID from response
+      const order = data.data;
+      const orderId = order._id;
+
+      // 3️⃣ Store order info for payment page
+      sessionStorage.setItem("orderId", orderId);
+      sessionStorage.setItem("orderSummary", JSON.stringify({ priceToPay: total }));
+
+      // 4️⃣ Navigate to payment page
+      navigate("/order/payment");
+
+    } catch (error) {
+      console.error(error);
+      alert("Error creating order. Please try again.");
+    }
   }
 
   return (
@@ -115,7 +148,9 @@ function OrderConfirm() {
         </div>
         <button className="proceed-button"
           onClick={proceedToPayment}
-        >Proceed to Payment</button>
+        >
+          Proceed to Payment
+        </button>
       </div>
       <Footer />
     </>

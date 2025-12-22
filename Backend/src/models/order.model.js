@@ -4,7 +4,7 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 const orderSchema = new mongoose.Schema(
   {
     shippingAddress: {
-      fullName: {
+      name: {
         type: String,
         required: true,
       },
@@ -61,42 +61,31 @@ const orderSchema = new mongoose.Schema(
     ],
 
     paymentInfo: {
-      id: {
-        type: String,
+      id: String, // Razorpay payment_id
+      status: String, // created | paid | failed
+    },
+
+    priceDetails: {
+      itemsPrice: {
+        type: Number,
         required: true,
+        default: 0,
       },
-      status: {
-        type: String,
+      taxPrice: {
+        type: Number,
         required: true,
+        default: 0,
       },
-    },
-
-    deliveredAt: Date,
-
-    paidAt: {
-      type: Date,
-      required: true,
-    },
-
-    itemsPrice: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    taxPrice: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    shippingPrice: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    totalPrice: {
-      type: Number,
-      required: true,
-      default: 0,
+      shippingPrice: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      totalPrice: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
     },
 
     orderStatus: {
@@ -117,6 +106,19 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+
+    isPaid: {
+      type: Boolean,
+      default: false,
+    },
+
+    deliveredAt: {
+      type: Date,
+    },
+
+    paidAt: {
+      type: Date,
     },
   },
   { timestamps: true }

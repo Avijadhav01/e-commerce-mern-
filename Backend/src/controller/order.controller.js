@@ -8,7 +8,8 @@ import { Product } from "../models/product.model.js";
 import { isValidObjectId } from "mongoose";
 
 const createOrder = AsyncHandler(async (req, res) => {
-  const { shippingAddress, orderItems, paymentInfo } = req.body;
+  const { shippingAddress, orderItems } = req.body;
+  const userId = req.user?._id;
 
   if (!orderItems || orderItems.length === 0)
     throw new ApiError("No order items provided", 400);
@@ -37,37 +38,45 @@ const createOrder = AsyncHandler(async (req, res) => {
   });
 
   // Tax and shipping
-  const taxPrice = Math.round(itemsPrice * 0.1);
-  const shippingPrice = itemsPrice > 1000 ? 0 : 50;
+  const taxPrice = +(itemsPrice * 0.06).toFixed(2);
+  const shippingPrice = itemsPrice > 500 ? 0 : 60;
   const totalPrice = itemsPrice + taxPrice + shippingPrice;
 
   // Create order
   const order = await Order.create({
-    user: req.user?._id,
+    user: userId,
     shippingAddress,
     orderItems: detailedOrderItems,
-    paymentInfo,
-    itemsPrice,
-    taxPrice,
-    shippingPrice,
-    totalPrice,
-    paidAt: Date.now(),
+    priceDetails: {
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice,
+    },
+    isPaid: false,
+    paymentInfo: {
+      status: "created", // created | paid | failed
+    },
     orderStatus: "pending",
   });
 
-  // Update stock one by one
-  for (const item of orderItems) {
-    const product = await Product.findById(item.product);
-    if (!product) continue; // skip if not found
-
-    if (product.stock < item.quantity) {
-      throw new ApiError(`Not enough stock for ${product.name}`, 400);
-    }
-
-    // Reduce stock
-    product.stock -= item.quantity;
-    await product.save({ validateBeforeSave: false });
+  if (!order) {
+    throw new ApiError("Order not found", 404);
   }
+
+  // Update stock one by one
+  // for (const item of orderItems) {
+  //   const product = await Product.findById(item.product);
+  //   if (!product) continue; // skip if not found
+
+  //   if (product.stock < item.quantity) {
+  //     throw new ApiError(`Not enough stock for ${product.name}`, 400);
+  //   }
+
+  //   // Reduce stock
+  //   product.stock -= item.quantity;
+  //   await product.save({ validateBeforeSave: false });
+  // }
 
   res
     .status(201)

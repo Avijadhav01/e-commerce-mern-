@@ -48,6 +48,8 @@ const productSlice = createSlice({
   initialState: {
     products: [],
     productCount: 0,
+    product: null,
+    searchKeyword: "",
 
     currPage: 0,
     isNextPage: false,
@@ -56,8 +58,6 @@ const productSlice = createSlice({
 
     loading: false,
     error: null,
-    product: null,
-    searchKeyword: "",
   },
   reducers: {
     removeErrors: (state) => {

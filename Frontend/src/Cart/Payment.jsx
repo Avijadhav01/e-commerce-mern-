@@ -6,31 +6,33 @@ import Footer from '../components/Footer'
 import CheckoutPath from './CheckoutPath';
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getKey, processPayment } from '../features/payment/paymentSlice'
+import { getKey, processPayment, removeErrors } from '../features/payment/paymentSlice'
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Payment() {
 
-  const orderSummary = JSON.parse(sessionStorage.getItem("orderSummary"));
   const orderId = sessionStorage.getItem("orderId");
 
   const { user } = useSelector(state => state.user);
+  const { error, loading } = useSelector(state => state.payment);
   const { shippingInfo } = useSelector(state => state.cart);
+  const { order } = useSelector(state => state.order);
 
   const dispatch = useDispatch();
 
   const completePayment = async (amount) => {
     try {
-      const { data: order } = await dispatch(processPayment(amount)).unwrap();
+      const { data: paymentOrder } = await dispatch(processPayment(amount)).unwrap();
       const { data: key } = await dispatch(getKey()).unwrap();
 
       const options = {
         key,
-        amount: order.amount,
+        amount: paymentOrder.amount,
         currency: "INR",
         name: "ShopEasy",
         description: "Ecommerce Website Payment Transaction",
-        order_id: order.id,
+        order_id: paymentOrder.id,
         callback_url: `/api/v1/payments/verification?orderId=${orderId}`,
         prefill: {
           name: user.fullName,
@@ -53,9 +55,10 @@ function Payment() {
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const status = query.get("status");
+    const orderId = query.get("orderId");
 
     if (status === "failed") {
-      alert("Payment failed. Please try again!");
+      toast.error("Payment failed. Please try again!");
     }
   }, [location]);
 
@@ -63,6 +66,13 @@ function Payment() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(removeErrors());
+    }
+  }, [error]);
 
   return (
     <>
@@ -75,8 +85,10 @@ function Payment() {
           Go Back
         </Link>
         <button
-          onClick={() => completePayment(orderSummary?.priceToPay)}
-          className='payment-btn'>Pay ({orderSummary?.priceToPay})/-</button>
+          onClick={() => completePayment(order?.priceDetails?.totalPrice)}
+          className='payment-btn'>
+          Pay ({order?.priceDetails?.totalPrice})/-
+        </button>
       </div>
       <Footer />
     </>

@@ -52,6 +52,13 @@ const paymentVerification = AsyncHandler(async (req, res) => {
 
   if (!isAuthentic) {
     // Redirect to payment page with failure alert
+
+    order.orderStatus = "cancelled";
+    order.isPaid = false;
+    order.paymentInfo = {
+      status: "failed",
+    };
+
     return res.redirect(
       `http://localhost:5173/order/payment?status=failed&orderId=${orderId}`
     );
@@ -82,7 +89,9 @@ const paymentVerification = AsyncHandler(async (req, res) => {
   }
 
   // Redirect to success page
-  return res.redirect(`http://localhost:5173/order-success/${orderId}`);
+  return res.redirect(
+    `http://localhost:5173/payment-success?reference=${razorpay_payment_id}`
+  );
 });
 
 export { processPayment, sendApiKey, paymentVerification };

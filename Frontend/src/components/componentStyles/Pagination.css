@@ -1,7 +1,7 @@
 /* Main container */
 .page-section {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   gap: 8px;
   padding: 10px;

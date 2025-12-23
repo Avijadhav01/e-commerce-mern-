@@ -22,6 +22,9 @@ import Cart from "./Cart/Cart.jsx";
 import Shipping from "./Cart/Shipping.jsx";
 import OrderConfirm from "./Cart/OrderConfirm.jsx";
 import Payment from "./Cart/Payment.jsx";
+import PaymentSuccess from "./Cart/PaymentSuccess.jsx";
+import MyOrders from "./Order/MyOrders.jsx";
+import OrderDetails from "./Order/OrderDetails.jsx";
 
 function App() {
 
@@ -78,6 +81,21 @@ function App() {
           <Route
             path="/order/payment"
             element={<ProtectedRoute element={<Payment />} />}
+          />
+
+          <Route
+            path="/payment-success"
+            element={<ProtectedRoute element={<PaymentSuccess />} />}
+          />
+
+          <Route
+            path="/orders/user"
+            element={<ProtectedRoute element={<MyOrders />} />}
+          />
+
+          <Route
+            path="/orders/:orderId"
+            element={<ProtectedRoute element={<OrderDetails />} />}
           />
 
         </Routes>

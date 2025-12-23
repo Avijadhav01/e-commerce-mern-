@@ -11,7 +11,7 @@ import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
 import Loader from '../components/Loader';
 import Navbar from '../components/Navbar';
-import PageTitle from '../components/pageTitle';
+import PageTitle from '../components/PageTitle.jsx';
 
 function Products() {
 

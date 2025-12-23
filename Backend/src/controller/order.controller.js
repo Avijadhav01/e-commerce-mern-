@@ -32,7 +32,7 @@ const createOrder = AsyncHandler(async (req, res) => {
       product: product._id,
       name: product.name,
       price: product.price,
-      avatar: product.avatar?.url || "",
+      avatar: product.productImages[0]?.url || "",
       quantity: item.quantity,
     };
   });
@@ -98,6 +98,9 @@ const allOrdersOfLoggedInUser = AsyncHandler(async (req, res) => {
     page: Number(page),
     limit: Number(limit),
   });
+  if (!orders.docs.length) {
+    return res.status(200).json(new ApiResponse(404, {}, "Orders Not Found"));
+  }
   return res
     .status(200)
     .json(new ApiResponse(200, orders, "Orders fetched successfully"));
@@ -106,6 +109,7 @@ const allOrdersOfLoggedInUser = AsyncHandler(async (req, res) => {
 // Admin -- Getting single order
 const getSingleOrder = AsyncHandler(async (req, res) => {
   const orderId = req.params.orderId;
+
   if (!isValidObjectId(orderId)) {
     throw new ApiError("Invalid Order ID", 400);
   }

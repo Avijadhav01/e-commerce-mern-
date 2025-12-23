@@ -1,0 +1,84 @@
+.my-orders-container {
+  padding: 10px 20px;
+  max-width: 1200px;
+  min-height: 70vh;
+  margin: 60px auto 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* overflow-y: hidden; */
+  box-sizing: unset;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+
+  overflow-y: auto;
+  height: 70vh;
+  outline: none;
+  border: none;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: center;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.orders-table th {
+  background-color: var(--bg-secondary);
+  font-weight: bold;
+  color: var(--text-primary);
+  position: sticky;
+  top: 0;
+}
+
+.orders-table tbody {
+}
+
+.orders-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.orders-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.no-orders {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: #777;
+  min-height: 50vh;
+  width: 80vw;
+
+  font-size: 30px;
+}
+
+.order-link {
+  color: var(--bg-secondary);
+}
+
+@media (max-width: 768px) {
+  .orders-table th,
+  .orders-table td {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}

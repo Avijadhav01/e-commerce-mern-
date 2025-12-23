@@ -33,7 +33,7 @@ router
   .delete(verifyUserAuth, authorizeRoles("admin"), deleteOrder);
 
 router
-  .route("/admin/order/:orderId") // add "order" to avoid conflict with "update-status"
-  .get(verifyUserAuth, authorizeRoles("admin"), getSingleOrder);
+  .route("/:orderId") // add "order" to avoid conflict with "update-status"
+  .get(verifyUserAuth, getSingleOrder);
 
 export default router;

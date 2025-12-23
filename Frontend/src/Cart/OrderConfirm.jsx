@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react'
 import "./CartStyles/OrderConfirm.css";
-import PageTitle from '../components/pageTitle';
+import PageTitle from '../components/PageTitle';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CheckoutPath from './CheckoutPath';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { clearOrderSuccess, createOrder, removeErrors } from '../features/order/orderSlice';
+import { toast } from 'react-toastify';
 
 function OrderConfirm() {
 
   const { shippingInfo, cartItems } = useSelector(state => state.cart);
   const { user } = useSelector(state => state.user);
+  const { order, error, loading, success } = useSelector(state => state.order)
 
   // Price Summary calculation
   const subtotal = cartItems?.reduce((total, item) => {
@@ -25,6 +27,7 @@ function OrderConfirm() {
   const total = subtotal + tax + shippingCharges;
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Create order and go to payment page
   const proceedToPayment = async () => {
@@ -37,6 +40,7 @@ function OrderConfirm() {
       country: shippingInfo?.country,
       postalCode: shippingInfo?.pinCode,
     }
+
     const orderData = {
       shippingAddress: shippingDetails,
       orderItems: cartItems.map(item => ({
@@ -45,29 +49,23 @@ function OrderConfirm() {
       })),
     };
 
-    try {
-      // console.log(orderData);
-      // 1️⃣ Create the order in backend
-      const { data } = await axios.post("/api/v1/orders/create", orderData, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-
-      // 2️⃣ Get order ID from response
-      const order = data.data;
-      const orderId = order._id;
-
-      // 3️⃣ Store order info for payment page
-      sessionStorage.setItem("orderId", orderId);
-      sessionStorage.setItem("orderSummary", JSON.stringify({ priceToPay: total }));
-
-      // 4️⃣ Navigate to payment page
-      navigate("/order/payment");
-
-    } catch (error) {
-      console.error(error);
-      alert("Error creating order. Please try again.");
-    }
+    dispatch(createOrder(orderData));
   }
+
+  useEffect(() => {
+    if (success) {
+      navigate("/order/payment");
+      dispatch(clearOrderSuccess()); // Reset success after navigation
+    }
+  }, [success, navigate, dispatch]);
+
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(removeErrors());
+    }
+  }, [error])
 
   return (
     <>
@@ -137,19 +135,21 @@ function OrderConfirm() {
             </thead>
             <tbody>
               <tr>
-                <td>{subtotal}/-</td>
-                <td>{shippingCharges === 0 ? "Free Delivery" : `${shippingCharges}/-`}</td>
-                <td>{tax}/-</td>
-                <td>₹ {total}/-</td>
+                <td>₹ {subtotal.toLocaleString()}</td>
+                <td>{shippingCharges === 0 ? "Free Delivery" : `₹ ${shippingCharges.toLocaleString()}`}</td>
+                <td>₹ {tax.toLocaleString()}</td>
+                <td>₹ {total.toLocaleString()}</td>
               </tr>
             </tbody>
           </table>
 
         </div>
-        <button className="proceed-button"
+        <button
+          className="proceed-button"
           onClick={proceedToPayment}
+          disabled={loading}
         >
-          Proceed to Payment
+          {loading ? "Processing..." : "Proceed to Payment"}
         </button>
       </div>
       <Footer />

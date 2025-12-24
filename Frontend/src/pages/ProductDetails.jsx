@@ -9,10 +9,17 @@ import { getProductDetails, removeErrors } from '../features/products/productSli
 import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { toast } from "react-toastify"
-import { createProductReview, getProductReviews, removeReviewErrors, removeReviewMessage } from '../features/reviews/reviewSlice.js';
+import {
+  createProductReview,
+  getProductReviews,
+  removeReviewErrors,
+  removeReviewMessage,
+  clearReviewSuccess,
+} from '../features/reviews/reviewSlice.js';
+
 import { addItemToCart, removeMessage } from '../features/cart/cartSlice.js';
 import { removeErrors as cartRemoveErrors } from "../features/cart/cartSlice.js"
-import Review from '../components/Review.jsx';
+import Review from './Review.jsx';
 import Pagination from '../components/Pagination.jsx';
 
 function ProductDetails() {
@@ -25,6 +32,7 @@ function ProductDetails() {
 
   const { loading: cartLoading, error: cartError, success, message } = useSelector(state => state.cart)
   const { product, error, loading } = useSelector((state) => state.product);
+  const user = JSON.parse(localStorage.getItem("user"));
   const {
     reviews,
     loading: reviewLoading,
@@ -36,6 +44,7 @@ function ProductDetails() {
     success: reviewSuccess,
     message: reviewMessage
   } = useSelector((state) => state.review);
+
   const dispatch = useDispatch();
 
   // for product details and review
@@ -57,11 +66,19 @@ function ProductDetails() {
       toast.success(message);
       dispatch(removeMessage());
     }
+  }, [success, message, dispatch]);
+
+  useEffect(() => {
     if (reviewSuccess) {
-      toast.success(reviewMessage);
+      dispatch(getProductReviews({ id, page: 1, limit: 2 }));
+      setUserComment("");
+      setUserRating(0);
+      toast.success(reviewMessage)
+      dispatch(clearReviewSuccess());
       dispatch(removeReviewMessage());
+
     }
-  }, [success, message, reviewSuccess, reviewMessage, dispatch]);
+  }, [reviewSuccess, id, dispatch])
 
   // For error
   useEffect(() => {
@@ -119,21 +136,17 @@ function ProductDetails() {
         rating: userRating,
         comment: userComment
       }
-      dispatch(createProductReview(data))
+      dispatch(createProductReview(data));
     }
   }
 
   useEffect(() => {
-    if (reviewSuccess) {
-      dispatch(getProductReviews({ id, page: 1, limit: 2 }));
-      setUserComment("");
-      setUserRating(0);
-    }
-  }, [reviewSuccess, id])
-
-  useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
+
+  useEffect(() => {
+    console.log(reviews)
+  }, [reviews])
 
   return (
     <>
@@ -184,7 +197,7 @@ function ProductDetails() {
                       <button className='quantity-button' onClick={decreaseQuantity}>
                         -
                       </button>
-                      <input type="text" value={quantity}
+                      <input type="number" value={quantity}
                         className='quantity-value' readOnly
                       />
                       <button className='quantity-button' onClick={increaseQuantity}>
@@ -228,16 +241,19 @@ function ProductDetails() {
 
               <div className="reviews-container" >
                 <h3>Customer Reviews</h3>
-                {
-                  reviewLoading ? (
-                    <Loader />
-                  ) : reviews && reviews.length === 0 ? (
-                    <p className="no-reviews">This product has no reviews yet.</p>
-                  ) : reviews?.map((review, idx) => (
-                    <Review review={review} key={idx} />
-                  ))
-                }
+                <div className="review-section" >
 
+                  {
+                    reviewLoading ? (
+                      <Loader />
+                    ) : reviews && reviews.length === 0 ? (
+                      <p className="no-reviews">This product has no reviews yet.</p>
+                    ) :
+                      reviews?.map((review) => (
+                        <Review review={review} userId={user?._id} productId={product?._id} key={review._id} />
+                      ))
+                  }
+                </div>
               </div>
               <Pagination
                 currPage={currPage}

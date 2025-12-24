@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../features/user/userSlice';
+import { FaUserCircle, } from "react-icons/fa";
+import { MdOutlineShoppingBag, MdLogout, MdDashboard } from "react-icons/md";
 
 function UserDashboard({ user }) {
 
@@ -35,14 +37,14 @@ function UserDashboard({ user }) {
   }
 
   const options = [
-    { name: "Orders", functionName: orders },
-    { name: "Account", functionName: profile },
-    { name: "Logout", functionName: logout },
+    { name: "Orders", functionName: orders, icon: <MdOutlineShoppingBag /> },
+    { name: "My Profile", functionName: profile, icon: <FaUserCircle /> },
+    { name: "Logout", functionName: logout, icon: <MdLogout /> },
   ]
 
   if (user.role === 'admin') {
     options.unshift({
-      name: "Admin Dashboard", functionName: dashbord
+      name: "Admin Dashboard", functionName: dashbord, icon: <MdDashboard />
     })
   }
 
@@ -55,7 +57,9 @@ function UserDashboard({ user }) {
       <div className={`overlay ${isMenuOpen ? 'show' : ''}`} onClick={toggleMenuOpen}></div>
       <div className="dashbord-container">
         <div className="profile-header">
-          <img src={`${user.avatar.url || "/profile.png"}`} alt="Profilt Pic"
+          <img
+            src={`${user.avatar.url || "/profile.png"}`}
+            alt="Profile Pic"
             className='profile-avatar'
             onClick={toggleMenuOpen} />
         </div>
@@ -67,6 +71,7 @@ function UserDashboard({ user }) {
                   className='menu-option-btn'
                   onClick={option.functionName}
                 >
+                  {option.icon}
                   {option.name}
                 </button>
               </div>

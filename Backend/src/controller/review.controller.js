@@ -25,9 +25,12 @@ const createReview = AsyncHandler(async (req, res) => {
   const productId = req.params?.productId;
   const userId = req.user?._id;
 
-  if (!isValidObjectId(productId)) {
+  const { rating, comment } = req.body;
+  if (!rating || !comment)
+    throw new ApiError("Rating and comment required", 400);
+
+  if (!isValidObjectId(productId))
     throw new ApiError("Invalid product ID", 400);
-  }
 
   // Check if product exists
   const product = await Product.findById(productId);
@@ -38,27 +41,25 @@ const createReview = AsyncHandler(async (req, res) => {
     product: productId,
     user: userId,
   });
+
   if (existReview) {
-    throw new ApiError("You have already reviewed this product", 400);
+    existReview.rating = Number(rating);
+    existReview.comment = comment;
+    await existReview.save();
+  } else {
+    await Review.create({
+      product: productId,
+      user: userId,
+      rating: Number(rating),
+      comment,
+    });
   }
-
-  const { rating, comment } = req.body;
-
-  if (!rating || !comment)
-    throw new ApiError("Rating and comment required", 400);
-
-  const review = await Review.create({
-    product: productId,
-    user: userId,
-    rating: Number(rating),
-    comment,
-  });
 
   await updateAverageRatingAndRatingCount(productId);
 
   return res
     .status(201)
-    .json(new ApiResponse(201, review, "Review created successfully"));
+    .json(new ApiResponse(201, {}, "Review created successfully"));
 });
 
 // 2️⃣ Get product reviews
@@ -94,6 +95,7 @@ const getProductReviews = AsyncHandler(async (req, res) => {
         createdAt: 1,
         "userInfo.fullName": 1,
         "userInfo.avatar": 1,
+        "userInfo._id": 1,
       },
     },
   ]);
@@ -116,42 +118,6 @@ const getProductReviews = AsyncHandler(async (req, res) => {
     );
 });
 
-// 3️⃣ Update product reviews
-const updateProductReview = AsyncHandler(async (req, res) => {
-  //
-  const productId = req.params.productId;
-  const userId = req.user._id;
-
-  if (!isValidObjectId(productId))
-    throw new ApiError("Invalid product ID", 400);
-
-  const product = await Product.findById(productId).lean();
-
-  if (!product) throw new ApiError("Product not found", 404);
-
-  const { rating, comment } = req.body;
-  if (!rating || !comment) {
-    throw new ApiError("Rating and comment are required", 400);
-  }
-
-  const review = await Review.findOne({
-    product: productId,
-    user: userId,
-  });
-
-  if (!review) throw new ApiError("No review yet", 404);
-
-  review.rating = Number(rating);
-  review.comment = comment;
-  await review.save({ validateBeforeSave: false });
-
-  await updateAverageRatingAndRatingCount(productId);
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, review, "Product review updated"));
-});
-
 // 4️⃣ Delete Product Review
 const deleteProductReview = AsyncHandler(async (req, res) => {
   const productId = req.params.productId;
@@ -163,13 +129,20 @@ const deleteProductReview = AsyncHandler(async (req, res) => {
   const product = await Product.findById(productId).lean();
   if (!product) throw new ApiError("Product not found", 404);
 
-  const review = await Review.findOne({
+  const review = await Review.findOne({ product: productId });
+  if (!review) throw new ApiError("Review not found", 404);
+
+  if (review.user.toString() !== userId.toString()) {
+    throw new ApiError("You are not allowed to delete this review", 403);
+  }
+
+  const deletedReview = await Review.findOneAndDelete({
     product: productId,
     user: userId,
   });
-  if (!review) throw new ApiError("Review not found", 404);
 
-  await Review.findByIdAndDelete(review._id);
+  if (!deletedReview)
+    throw new ApiError("Review not found or not authorized", 404);
 
   await updateAverageRatingAndRatingCount(productId);
 
@@ -178,9 +151,4 @@ const deleteProductReview = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Review deleted successfully"));
 });
 
-export {
-  createReview,
-  getProductReviews,
-  updateProductReview,
-  deleteProductReview,
-};
+export { createReview, getProductReviews, deleteProductReview };

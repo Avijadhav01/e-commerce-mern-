@@ -56,12 +56,13 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
+// Update
 export const updateProfile = createAsyncThunk(
   "updateProfile",
   async (fd, { rejectWithValue }) => {
     try {
       const response = await api.post("/users/profile/update", fd);
-      // console.log("Backend Response:", response.data);
+      console.log("Backend Response:", response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -229,14 +230,14 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
-        console.log("Fulfilled action payload: ", action.payload);
+        // console.log("Fulfilled action payload: ", action.payload);
         state.loading = false;
         state.error = null;
         state.user = action.payload.data;
         state.isAuthenticated = true;
       })
       .addCase(updateProfile.rejected, (state, action) => {
-        console.log("updatedata Rejected action payload: ", action.payload);
+        // console.log("update data Rejected action payload: ", action.payload);
         state.loading = false;
         state.error = action.payload || "Update profile failed";
       });

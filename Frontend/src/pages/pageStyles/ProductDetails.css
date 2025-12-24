@@ -293,10 +293,12 @@
 /* Review card */
 .review-item {
   padding: 10px 20px;
-  border-radius: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
   background: #f7f9fc;
   border: 1px solid #e4e6eb;
   transition: 0.2s ease-in-out;
+  position: relative;
 }
 
 .review-item:hover {
@@ -314,7 +316,7 @@
 
 /* User name */
 .review-name {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   color: #4a4a4a;
   text-align: right;
@@ -341,6 +343,21 @@
   color: #b12704;
 }
 
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  z-index: 1000;
+
+  color: rgb(194, 3, 3);
+  font-size: 14px;
+}
+
 @media (max-width: 808px) {
   .product-detail-container {
     display: flex;
@@ -358,19 +375,15 @@
 
   .reviews-container {
     height: 340px;
+    padding: 10px;
   }
 
   .review-item {
-    height: 120px;
     position: relative;
   }
 
   .review-header {
     margin-bottom: 0px;
-  }
-
-  .rating {
-    margin-top: 10px;
   }
 
   .review-comment {

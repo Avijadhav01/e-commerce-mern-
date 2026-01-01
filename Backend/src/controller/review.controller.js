@@ -151,4 +151,27 @@ const deleteProductReview = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Review deleted successfully"));
 });
 
-export { createReview, getProductReviews, deleteProductReview };
+// Admin - Delete Review
+const adminDeleteReview = AsyncHandler(async (req, res) => {
+  const { reviewId } = req.params;
+
+  if (!isValidObjectId(reviewId)) throw new ApiError("Invalid review ID", 400);
+
+  const review = await Review.findById(reviewId);
+
+  if (!review) throw new ApiError("Review not found", 404);
+
+  await Review.findByIdAndDelete(reviewId);
+  await updateAverageRatingAndRatingCount(review.product);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, review, "Review deleted successfully"));
+});
+
+export {
+  createReview,
+  getProductReviews,
+  deleteProductReview,
+  adminDeleteReview,
+};

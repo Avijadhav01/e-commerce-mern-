@@ -2,10 +2,8 @@ import React from 'react'
 import "./pageStyles/ProductDetails.css";
 import Rating from '../components/Rating';
 import { FaTrash } from "react-icons/fa";
-import { FaEdit } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 import { deleteReview } from '../features/reviews/reviewSlice';
-import { Pointer } from 'lucide-react';
 
 function Review({ review, userId, productId }) {
 

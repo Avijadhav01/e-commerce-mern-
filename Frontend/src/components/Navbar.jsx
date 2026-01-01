@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import "./componentStyles/Navbar.css"
 import "../pages/pageStyles/Search.css"
-import { Link, useNavigate, NavLink } from "react-router-dom"
-import { } from "lucide-react";
+import { Link, useNavigate, NavLink, useLocation } from "react-router-dom"
 import {
   FaSearch,
   FaShoppingCart,
@@ -22,12 +21,13 @@ function Navbar({ search, cartIconHide }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery) {
       dispatch(setSearchKeyword(searchQuery));
-      navigate("/products")
+      if (location.pathname !== "/products") navigate("/products");
     }
   }
 

@@ -1,6 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "./api.js";
+import axios from "axios";
 
+// Create Axios instance
+// const api = axios.create({
+//   baseURL: "/api/v1", // your backend base URL
+//   withCredentials: true, // send cookies automatically
+//   headers: {
+//     "Cache-Control": "no-cache",
+//     Pragma: "no-cache",
+//   },
+//   credentials: "include", // send cookies
+// });
 // Register User
 export const registerUser = createAsyncThunk(
   "registerUser",
@@ -31,7 +42,7 @@ export const logInUser = createAsyncThunk(
 );
 
 export const loadUser = createAsyncThunk(
-  "loadUser",
+  "users/loadUser",
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get("/users/profile");
@@ -197,7 +208,10 @@ const userSlice = createSlice({
       .addCase(loadUser.rejected, (state, action) => {
         // console.log("Current user rejected action payload: ", action.payload);
         state.loading = false;
-        // state.error = action.payload || "Failed to load user";
+        state.error = action.payload || "Failed to load user";
+        state.user = null;
+        localStorage.removeItem("user");
+        state.isAuthenticated = false;
         // DO NOT set user to null here
       });
 

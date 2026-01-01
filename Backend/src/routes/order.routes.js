@@ -21,12 +21,12 @@ router.route("/user").get(verifyUserAuth, allOrdersOfLoggedInUser);
 
 // Admin routes
 router
-  .route("/admin/orders")
+  .route("/admin/fetchAll")
   .get(verifyUserAuth, authorizeRoles("admin"), allOrders);
 
 router
-  .route("/admin/update-status/:orderId")
-  .put(verifyUserAuth, authorizeRoles("admin"), updateOrderStatus);
+  .route("/admin/:orderId")
+  .patch(verifyUserAuth, authorizeRoles("admin"), updateOrderStatus);
 
 router
   .route("/admin/:orderId")

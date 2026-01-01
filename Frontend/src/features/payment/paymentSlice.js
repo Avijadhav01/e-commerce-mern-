@@ -12,10 +12,11 @@ const api = axios.create({
 
 export const processPayment = createAsyncThunk(
   "payment/process",
-  async (orderAmount, { rejectWithValue }) => {
+  async (amount, { rejectWithValue }) => {
     try {
+      console.log(amount);
       const { data } = await api.post(`/payments/order`, {
-        amount: orderAmount,
+        amount: amount,
       });
       // console.log("Backend responce: ", data);
       return data;
@@ -45,19 +46,15 @@ export const getKey = createAsyncThunk(
 const paymentSlice = createSlice({
   name: "payment",
   initialState: {
-    order: null,
+    // paymentOrder: null,
     error: null,
     loading: false,
-    key: null,
+    // key: null,
   },
 
   reducers: {
     removeErrors: (state) => {
       state.error = null;
-    },
-
-    removeMessage: (state) => {
-      state.message = null;
     },
   },
 
@@ -70,7 +67,7 @@ const paymentSlice = createSlice({
       .addCase(processPayment.fulfilled, (state, action) => {
         state.error = null;
         state.loading = false;
-        state.order = action.payload.data;
+        // state.paymentOrder = action.payload.data;
       })
       .addCase(processPayment.rejected, (state, action) => {
         state.loading = false;
@@ -78,7 +75,7 @@ const paymentSlice = createSlice({
           action.payload?.message ||
           action.payload ||
           "Failed to process payment";
-        state.order = null;
+        // state.paymentOrder = null;
       });
 
     builder
@@ -89,7 +86,7 @@ const paymentSlice = createSlice({
       .addCase(getKey.fulfilled, (state, action) => {
         state.error = null;
         state.loading = false;
-        state.key = action.payload.data;
+        // state.key = action.payload.data;
       })
       .addCase(getKey.rejected, (state, action) => {
         state.loading = false;
@@ -97,10 +94,10 @@ const paymentSlice = createSlice({
           action.payload?.message ||
           action.payload ||
           "Failed to process payment";
-        state.key = null;
+        // state.key = null;
       });
   },
 });
 
-export const { removeErrors, removeMessage } = paymentSlice.actions;
+export const { removeErrors } = paymentSlice.actions;
 export default paymentSlice.reducer;

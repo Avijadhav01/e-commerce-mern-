@@ -12,12 +12,10 @@ import { toast } from "react-toastify";
 
 function Payment() {
 
-  const orderId = sessionStorage.getItem("orderId");
-
   const { user } = useSelector(state => state.user);
-  const { error, loading } = useSelector(state => state.payment);
+  const { error } = useSelector(state => state.payment);
   const { shippingInfo } = useSelector(state => state.cart);
-  const { order } = useSelector(state => state.order);
+  const order = JSON.parse(sessionStorage.getItem("order"));
 
   const dispatch = useDispatch();
 
@@ -26,18 +24,22 @@ function Payment() {
       const { data: paymentOrder } = await dispatch(processPayment(amount)).unwrap();
       const { data: key } = await dispatch(getKey()).unwrap();
 
+      console.log(paymentOrder);
+      console.log(key);
+
+      const productOrderId = order?._id
       const options = {
         key,
-        amount: paymentOrder.amount,
+        amount: paymentOrder?.amount,
         currency: "INR",
         name: "ShopEasy",
         description: "Ecommerce Website Payment Transaction",
-        order_id: paymentOrder.id,
-        callback_url: `/api/v1/payments/verification?orderId=${orderId}`,
+        order_id: paymentOrder?.id,
+        callback_url: `/api/v1/payments/verification?orderId=${productOrderId}`,
         prefill: {
-          name: user.fullName,
-          email: user.email,
-          contact: shippingInfo.phoneNumber,
+          name: user?.fullName,
+          email: user?.email,
+          contact: shippingInfo?.phoneNumber,
         },
         theme: { color: "#3399cc" }
       };
@@ -47,7 +49,6 @@ function Payment() {
 
     } catch (error) {
       console.error(error);
-      alert("Payment initialization failed");
     }
   };
 
@@ -55,7 +56,6 @@ function Payment() {
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const status = query.get("status");
-    const orderId = query.get("orderId");
 
     if (status === "failed") {
       toast.error("Payment failed. Please try again!");
@@ -87,7 +87,7 @@ function Payment() {
         <button
           onClick={() => completePayment(order?.priceDetails?.totalPrice)}
           className='payment-btn'>
-          Pay ({order?.priceDetails?.totalPrice})/-
+          Pay ({order?.priceDetails.totalPrice})/-
         </button>
       </div>
       <Footer />

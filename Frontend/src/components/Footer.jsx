@@ -1,6 +1,5 @@
 import React from "react";
-import { Mail, Phone } from "lucide-react";
-import { FaTwitter, FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaEnvelope, FaPhoneAlt, FaTwitter, FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
 import "./componentStyles/Footer.css"
 
 function Footer() {
@@ -12,10 +11,10 @@ function Footer() {
         <div className="footer-section contact">
           <h3 >Contact Us</h3>
           <p >
-            <Phone /> +9699403305
+            <FaPhoneAlt /> +9699403305
           </p>
           <p >
-            <Mail /> avip3460@gmail.com
+            <FaEnvelope /> avip3460@gmail.com
           </p>
         </div>
 
@@ -41,7 +40,8 @@ function Footer() {
         <div className="footer-section about">
           <h3 >About  </h3>
           <p >
-            Providing web development tutorials and courses to help you grow your skills.
+            We are dedicated to bringing you the best online shopping experience with a wide range of quality products.
+            Our mission is to make shopping easy, enjoyable, and trustworthy for everyone. Discover the latest trends, great deals, and exceptional customer service right at your fingertips.
           </p>
         </div>
       </div>

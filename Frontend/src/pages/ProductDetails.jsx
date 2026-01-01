@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import "./pageStyles/ProductDetails.css";
-import PageTitle from '../components/pageTitle';
+
+import PageTitle from '../components/PageTitle';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Rating from '../components/Rating';
+import Pagination from '../components/Pagination.jsx';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductDetails, removeErrors } from '../features/products/productSlice.js';
 import { useParams } from 'react-router-dom';
@@ -13,14 +16,12 @@ import {
   createProductReview,
   getProductReviews,
   removeReviewErrors,
-  removeReviewMessage,
   clearReviewSuccess,
 } from '../features/reviews/reviewSlice.js';
 
 import { addItemToCart, removeMessage } from '../features/cart/cartSlice.js';
 import { removeErrors as cartRemoveErrors } from "../features/cart/cartSlice.js"
 import Review from './Review.jsx';
-import Pagination from '../components/Pagination.jsx';
 
 function ProductDetails() {
 
@@ -32,7 +33,16 @@ function ProductDetails() {
 
   const { loading: cartLoading, error: cartError, success, message } = useSelector(state => state.cart)
   const { product, error, loading } = useSelector((state) => state.product);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+
+  const [selectedImage, setSelectedImage] = useState("");
+
+  useEffect(() => {
+    if (product) {
+      setSelectedImage(product?.productImages[0]?.url || "")
+    }
+  }, [product])
+
   const {
     reviews,
     loading: reviewLoading,
@@ -53,7 +63,7 @@ function ProductDetails() {
       const data = {
         id: id,
         page: 1,
-        limit: 2,
+        limit: 4,
       }
       dispatch(getProductDetails(id));
       dispatch(getProductReviews(data));
@@ -70,15 +80,16 @@ function ProductDetails() {
 
   useEffect(() => {
     if (reviewSuccess) {
-      dispatch(getProductReviews({ id, page: 1, limit: 2 }));
+      console.log(reviews);
+      if (id) {
+        dispatch(getProductReviews({ id, page: 1, limit: 4 }));
+      }
       setUserComment("");
       setUserRating(0);
       toast.success(reviewMessage)
       dispatch(clearReviewSuccess());
-      dispatch(removeReviewMessage());
-
     }
-  }, [reviewSuccess, id, dispatch])
+  }, [reviewSuccess, reviewMessage, id, dispatch]);
 
   // For error
   useEffect(() => {
@@ -130,6 +141,11 @@ function ProductDetails() {
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
+    if (!user) {
+      toast.error("Please login to submit a review");
+      return;
+    }
+
     if (userRating >= 1 && userComment.trim() !== "") {
       const data = {
         id: id,
@@ -144,10 +160,6 @@ function ProductDetails() {
     window.scrollTo(0, 0);
   }, [id]);
 
-  useEffect(() => {
-    console.log(reviews)
-  }, [reviews])
-
   return (
     <>
       <PageTitle title='Product - Details' />
@@ -159,16 +171,24 @@ function ProductDetails() {
               <div className="product-detail-container">
 
                 <div className="product-image-container">
-
-                  <div className="product-thumbnails">
-                    <img src={product?.productImages[0]?.url} alt=""
-                      className='thumbnail-image' />
-                  </div>
-
-                  <img src={`${product?.productImages[0]?.url}`}
+                  <img src={`${selectedImage || product?.productImages[0]?.url}`}
                     alt={`${product?.name}`}
                     className="product-detail-image" />
-
+                  {
+                    product?.productImages?.length > 1 &&
+                    <div className="product-thumbnails">
+                      {
+                        product?.productImages?.map((img, idx) => (
+                          <img
+                            src={img?.url}
+                            alt={`Thumbnail ${idx + 1}`}
+                            className={`thumbnail-image ${selectedImage === img?.url ? "selected" : ""}`}
+                            key={idx}
+                            onClick={() => setSelectedImage(img?.url)} />
+                        ))
+                      }
+                    </div>
+                  }
                 </div>
 
                 <div className="product-info">
@@ -234,23 +254,29 @@ function ProductDetails() {
                   >
                   </textarea>
                   <button
-                    type='submit'
-                    className='submit-review-btn'>Submit Review</button>
+                    type="submit"
+                    className="submit-review-btn"
+                    disabled={userRating === 0 || !userComment.trim()}
+                  >
+                    Submit Review
+                  </button>
+
                 </form>
               </div>
 
               <div className="reviews-container" >
                 <h3>Customer Reviews</h3>
                 <div className="review-section" >
-
                   {
-                    reviewLoading ? (
-                      <Loader />
-                    ) : reviews && reviews.length === 0 ? (
+                    reviews && reviews.length === 0 ? (
                       <p className="no-reviews">This product has no reviews yet.</p>
                     ) :
                       reviews?.map((review) => (
-                        <Review review={review} userId={user?._id} productId={product?._id} key={review._id} />
+                        <Review
+                          review={review}
+                          userId={user?._id}
+                          productId={product?._id}
+                          key={review._id} />
                       ))
                   }
                 </div>

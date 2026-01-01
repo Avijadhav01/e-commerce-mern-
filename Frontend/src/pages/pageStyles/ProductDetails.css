@@ -22,13 +22,17 @@
 .product-image-container {
   flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  height: 400px;
 }
 
 .product-detail-image {
   width: 500px;
-  max-width: 450px;
+  height: 350px;
+
   border-radius: 12px;
   object-fit: cover;
   transition: all 0.3s ease;
@@ -40,6 +44,8 @@
 
 .product-thumbnails {
   margin-top: 20px;
+  display: flex;
+  gap: 8px;
 }
 
 .thumbnail-image {
@@ -47,15 +53,16 @@
   height: 80px;
   object-fit: cover;
   cursor: pointer;
-  transition: all 0.3s, border 0.3s;
+  transition: all 0.3s ease; /* smooth animation */
 }
 
 .thumbnail-image:hover {
-  transform: scale(1.1);
+  transform: translateY(-5px); /* move up by 5px */
 }
 
 .thumbnail-image.selected {
-  box-shadow: 0 0 2px black;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+  scale: 0.9;
 }
 
 /* --- Product Info Section --- */
@@ -369,8 +376,6 @@
 
   .product-detail-image {
     margin-top: 40px;
-    height: 200px;
-    width: 300px;
   }
 
   .reviews-container {

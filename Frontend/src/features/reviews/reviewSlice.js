@@ -45,7 +45,7 @@ export const getProductReviews = createAsyncThunk(
   }
 );
 
-// Update
+// Delete
 export const deleteReview = createAsyncThunk(
   "reviews/deleteReview",
   async (formData, { rejectWithValue }) => {
@@ -80,80 +80,67 @@ const reviewSlice = createSlice({
       state.error = null;
     },
 
-    removeReviewMessage: (state) => {
-      state.message = null;
-      state.success = false;
-    },
-
     clearReviewSuccess: (state) => {
+      state.message = null;
       state.success = false;
     },
   },
 
   extraReducers: (builder) => {
     builder
-      .addCase(getProductReviews.pending, (state, action) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(getProductReviews.fulfilled, (state, action) => {
-        // console.log("fulfilled action payload: ", action.payload);
-        state.loading = false;
-        state.error = null;
-        state.reviews = action.payload.docs;
-        state.currPage = action.payload.page || 0;
-        state.isNextPage = action.payload.hasNextPage || false;
-        state.isPrevPage = action.payload.hasPrevPage || false;
-        state.totalPages = action.payload.totalPages || 0;
-      })
-      .addCase(getProductReviews.rejected, (state, action) => {
-        console.log("Rejected action payload: ", action.payload);
-        state.loading = false;
-        state.error = action.payload || "Something went wrong";
-        state.reviews = [];
-      });
-
-    builder
-      .addCase(createProductReview.pending, (state, action) => {
+      // CREATE REVIEW
+      .addCase(createProductReview.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(createProductReview.fulfilled, (state, action) => {
-        // console.log("fulfilled action payload: ", action.payload);
         state.loading = false;
-        state.error = null;
         state.success = true;
         state.message = action.payload.message;
       })
       .addCase(createProductReview.rejected, (state, action) => {
-        // console.log("Rejected action payload: ", action.payload);
         state.loading = false;
-        state.error = action.payload || "Something went wrong";
+        state.error = action.payload;
         state.success = false;
-        state.message = null;
-      });
+      })
 
-    builder
-      .addCase(deleteReview.pending, (state, action) => {
+      // GET REVIEWS
+      .addCase(getProductReviews.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getProductReviews.fulfilled, (state, action) => {
+        state.loading = false;
+        state.reviews = action.payload.docs;
+
+        state.currPage = action.payload.page;
+        state.isNextPage = action.payload.hasNextPage;
+        state.isPrevPage = action.payload.hasPrevPage;
+        state.totalPages = action.payload.totalPages;
+      })
+      .addCase(getProductReviews.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.reviews = [];
+      })
+
+      // DELETE REVIEW (🔥 FIX HERE)
+      .addCase(deleteReview.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(deleteReview.fulfilled, (state, action) => {
-        // console.log("fulfilled action payload: ", action.payload);
         state.loading = false;
-        state.error = null;
         state.success = true;
         state.message = action.payload.message;
       })
       .addCase(deleteReview.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Something went wrong";
+        state.error = action.payload;
         state.success = false;
-        state.message = null;
       });
   },
 });
 
-export const { removeReviewErrors, removeReviewMessage, clearReviewSuccess } =
-  reviewSlice.actions;
+export const { removeReviewErrors, clearReviewSuccess } = reviewSlice.actions;
 export default reviewSlice.reducer;

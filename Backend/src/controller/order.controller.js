@@ -153,12 +153,8 @@ const allOrders = AsyncHandler(async (req, res) => {
         orderItems: 1,
         paymentInfo: 1,
         paidAt: 1,
-        itemsPrice: 1,
-        taxPrice: 1,
-        shippingPrice: 1,
-        totalPrice: 1,
+        priceDetails: 1,
         orderStatus: 1,
-        user: 1,
         createdAt: 1,
         updatedAt: 1,
         __v: 1,
@@ -178,27 +174,12 @@ const allOrders = AsyncHandler(async (req, res) => {
     page: Number(page),
     limit: Number(limit),
   });
-
-  // 3️⃣ Calculate total revenue (sum of totalPrice of all orders)
-  const revenueAggregate = await Order.aggregate([
-    { $group: { _id: null, totalRevenue: { $sum: "$totalPrice" } } },
-  ]);
-
-  const totalRevenue = revenueAggregate[0]?.totalRevenue || 0;
-
-  return res.status(200).json(
-    new ApiResponse(
-      200,
-      {
-        orders,
-        totalRevenue,
-      },
-      "All orders fetched successfully"
-    )
-  );
+  return res
+    .status(200)
+    .json(new ApiResponse(200, orders, "All orders fetched successfully"));
 });
 
-// Restore stock when order is cancelled or refunded
+// Restore stock helper function
 const restoreStock = async (orderItems) => {
   for (const item of orderItems) {
     const product = await Product.findById(item.product);
@@ -263,9 +244,13 @@ const deleteOrder = AsyncHandler(async (req, res) => {
   if (!order) throw new ApiError("Order not found", 404);
 
   // Only allow deletion if order is delivered, cancelled, or refunded
-  if (!["delivered", "cancelled", "refunded"].includes(order.orderStatus)) {
+  if (
+    !["pending", "delivered", "cancelled", "refunded"].includes(
+      order.orderStatus
+    )
+  ) {
     throw new ApiError(
-      "Only delivered, cancelled, or refunded orders can be deleted",
+      "Only pending, delivered, cancelled, or refunded orders can be deleted",
       400
     );
   }

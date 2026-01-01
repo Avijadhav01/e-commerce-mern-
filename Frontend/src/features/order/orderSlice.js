@@ -16,7 +16,7 @@ export const createOrder = createAsyncThunk(
   async (orderData, { rejectWithValue }) => {
     try {
       const { data } = await api.post("/orders/create", orderData);
-      console.log("Backend responce: ", data);
+      // console.log("Backend responce: ", data);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -99,7 +99,7 @@ const orderSlice = createSlice({
         const order = action.payload.data;
         state.order = order;
         state.success = true;
-        sessionStorage.setItem("orderId", order._id);
+        sessionStorage.setItem("order", JSON.stringify(order));
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;
@@ -134,7 +134,6 @@ const orderSlice = createSlice({
       .addCase(getSingleOrder.pending, (state, action) => {
         state.error = null;
         state.loading = true;
-        state.order = null;
       })
       .addCase(getSingleOrder.fulfilled, (state, action) => {
         state.error = null;

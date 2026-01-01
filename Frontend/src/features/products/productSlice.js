@@ -9,20 +9,19 @@ const api = axios.create({
   },
 });
 
+// GET ALL PRODUCTS
 export const getProducts = createAsyncThunk(
   "products/all",
   async (filter, { rejectWithValue }) => {
     try {
-      // console.log(filter);
       const { data } = await api.get("/products/get-all", {
         params: {
           page: filter?.page || 1,
           limit: filter?.limit || 8,
-          keyword: filter?.keyword,
-          category: filter?.category,
+          keyword: filter?.keyword || "",
+          category: filter?.category || "",
         },
       });
-      // console.log("Backend Response:", data);
       return data.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -30,12 +29,12 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+// GET PRODUCT DETAILS
 export const getProductDetails = createAsyncThunk(
   "products/getProductDetails",
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await api.get(`/products/${id}`);
-      // console.log("hii: ", data);
       return data.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -49,7 +48,6 @@ const productSlice = createSlice({
     products: [],
     productCount: 0,
     product: null,
-    searchKeyword: "",
 
     currPage: 0,
     isNextPage: false,
@@ -58,56 +56,57 @@ const productSlice = createSlice({
 
     loading: false,
     error: null,
+
+    searchKeyword: "", // ✅ initialize
   },
+
   reducers: {
     removeErrors: (state) => {
       state.error = null;
     },
     setSearchKeyword: (state, action) => {
-      // console.log("Searched : ", action.payload);
       state.searchKeyword = action.payload;
     },
-    unSetSearchKeyword: (state) => {
+    removeSearchKeyword: (state) => {
       state.searchKeyword = "";
     },
   },
 
   extraReducers: (builder) => {
-    // Get Products
+    // GET ALL PRODUCTS
     builder
-      .addCase(getProducts.pending, (state, action) => {
-        state.products = []; // reset product list
-        state.loading = true;
+      .addCase(getProducts.pending, (state) => {
+        state.loading = true; // ✅ pending = true
         state.error = null;
+        state.products = [];
       })
       .addCase(getProducts.fulfilled, (state, action) => {
+        state.loading = false;
         state.products = action.payload.docs || [];
         state.currPage = action.payload.page || 0;
         state.isNextPage = action.payload.hasNextPage || false;
         state.isPrevPage = action.payload.hasPrevPage || false;
         state.totalPages = action.payload.totalPages || 0;
-        state.loading = false;
         state.error = null;
       })
       .addCase(getProducts.rejected, (state, action) => {
         state.loading = false;
-        // console.log("Rejected action payload: ", action.payload);
         state.error = action.payload || "Error while getting products";
+        state.products = [];
       });
 
-    // get product
+    // GET PRODUCT DETAILS
     builder
-      .addCase(getProductDetails.pending, (state, action) => {
-        state.loading = true;
+      .addCase(getProductDetails.pending, (state) => {
+        state.loading = true; // ✅ pending = true
         state.error = null;
       })
       .addCase(getProductDetails.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
+        state.loading = false; // ✅ fulfilled = false
         state.product = action.payload;
+        state.error = null;
       })
       .addCase(getProductDetails.rejected, (state, action) => {
-        console.log("Rejected action payload: ", action.payload);
         state.loading = false;
         state.error = action.payload || "Error while getting product details";
         state.product = null;
@@ -115,6 +114,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { removeErrors, setSearchKeyword, unSetSearchKeyword } =
+export const { removeErrors, setSearchKeyword, removeSearchKeyword } =
   productSlice.actions;
 export default productSlice.reducer;

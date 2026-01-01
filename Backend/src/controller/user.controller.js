@@ -43,7 +43,7 @@ const registerUser = AsyncHandler(async (req, res) => {
     email,
     password,
     role = "user",
-    phone = "0000 000 000",
+    phone = "000 000 0000",
   } = req.body;
 
   const avatarLocalPath = req.file?.path;
@@ -55,7 +55,7 @@ const registerUser = AsyncHandler(async (req, res) => {
     if (!req.body[field] || req.body[field].trim() === "") {
       return res
         .status(400)
-        .json(new ApiResponse(400, [], `Please provide ${field}`));
+        .json(new ApiResponse(400, {}, `Please provide ${field}`));
     }
   }
 
@@ -100,7 +100,9 @@ const registerUser = AsyncHandler(async (req, res) => {
   }
 
   // 6️⃣ Exclude password field before sending response
-  const updatedUser = await User.findById(user._id).select("-password");
+  const updatedUser = await User.findById(user._id).select(
+    "-password -refreshToken"
+  );
 
   // 7️⃣ Send success response
   return res
@@ -361,7 +363,7 @@ const updateCurrPassword = AsyncHandler(async (req, res) => {
   }
 
   // 2️⃣ Get the logged-in user
-  const user = await User.findById(userId).select("+password");
+  const user = await User.findById(userId).select("+password -refreshToken");
   if (!user) {
     throw new ApiError("User not found", 400);
   }
@@ -427,7 +429,7 @@ const deleteUser = AsyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new ApiResponse(200, null, "User deleted successfully"));
+    .json(new ApiResponse(200, {}, "User deleted successfully"));
 });
 
 // 1️⃣1️⃣ Admin - getting all users
@@ -531,18 +533,23 @@ const refreshAccessToken = AsyncHandler(async (req, res) => {
   }
 
   try {
-    const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET; // This is what the server uses to recreate the signature.
+    const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
+    // This is what the server uses to recreate the signature.
 
-    const decodedToken = jwt.verify(incomingRefreshToken, refreshTokenSecret); //Token + Secret together → allows the server to check the signature and decode the payload.
+    const payload = jwt.verify(incomingRefreshToken, refreshTokenSecret);
+    //Token + Secret together → allows the server to check the signature and decode the payload.
 
-    if (!decodedToken || !decodedToken._id) {
+    if (!payload || !payload._id) {
       throw new ApiError("Invalid Refresh Token", 401);
     }
 
-    const user = await User.findById(decodedToken._id);
+    // console.log("This is payload", payload);
+    const user = await User.findById(payload._id);
     if (!user) {
       throw new ApiError("User not found", 404);
     }
+
+    // console.log(incomingRefreshToken, "\n", user.refreshToken);
 
     if (user.refreshToken !== incomingRefreshToken) {
       throw new ApiError("Token mismatched or expired", 401);
@@ -550,6 +557,9 @@ const refreshAccessToken = AsyncHandler(async (req, res) => {
 
     const { accessToken, refreshToken } =
       await generateAccessTokenAndRefreshToken(user._id);
+
+    user.refreshToken = refreshToken;
+    await user.save();
 
     return res
       .status(200)
@@ -560,7 +570,6 @@ const refreshAccessToken = AsyncHandler(async (req, res) => {
           200,
           {
             accessToken,
-            refreshToken,
           },
           "Access token refreshed successfully"
         )

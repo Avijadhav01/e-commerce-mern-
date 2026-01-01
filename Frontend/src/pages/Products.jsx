@@ -3,15 +3,15 @@ import "./pageStyles/Products.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, removeErrors } from '../features/products/productSlice';
 import { toast } from "react-toastify"
-import { unSetSearchKeyword } from "../features/products/productSlice"
+import { removeSearchKeyword } from "../features/products/productSlice"
 import { BsFilterSquare } from "react-icons/bs";
 
+import PageTitle from '../components/PageTitle';
 import FilterSection from '../components/FilterSection';
 import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
 import Loader from '../components/Loader';
 import Navbar from '../components/Navbar';
-import PageTitle from '../components/PageTitle.jsx';
 
 function Products() {
 
@@ -23,11 +23,22 @@ function Products() {
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedGender, setSelectedGender] = useState("Male");
+  const [selectedPrice, setSelectedPrice] = useState("");
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProducts({ keyword: searchKeyword, category: selectedCategory, limit: 8 }));
-  }, [dispatch, searchKeyword, selectedCategory]);
+    dispatch(getProducts({
+      keyword: searchKeyword,
+      category: selectedCategory,
+      limit: 8,
+    }));
+  }, [searchKeyword, selectedCategory, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeSearchKeyword());
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     if (error) {
@@ -63,7 +74,6 @@ function Products() {
     <>
       <PageTitle title="All Products" />
       <Navbar search={true} />
-
       <BsFilterSquare
         size={23}
         className='filter-icon'

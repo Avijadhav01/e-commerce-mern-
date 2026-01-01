@@ -19,13 +19,15 @@ app.on("error", (err) => {
 // console.log(MY_NAME);
 
 // PAYMENT REZORPAY INSTANCE
+// console.log(process.env.RAZORPAY_API_KEY);
+// console.log(process.env.RAZORPAY_API_SECRET);
+
 export const instance = new Razorpay({
   key_id: process.env.RAZORPAY_API_KEY,
   key_secret: process.env.RAZORPAY_API_SECRET,
 });
 
 const port = process.env.PORT || 2000;
-
 // Connect DB and start server
 connectDB()
   .then(() => {

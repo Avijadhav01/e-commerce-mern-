@@ -6,53 +6,43 @@
   gap: 8px;
   padding: 10px;
   border-radius: 8px;
-  /* margin-top: 10px; */
   width: 100%;
 }
 
-/* Buttons */
+/* Buttons (no background) */
 .page-btn {
   padding: 8px 12px;
   font-size: 1rem;
-  font-weight: bold;
-  color: #f9fafb; /* light text */
-  border: 1px solid #4e4a59; /* base color */
-  border-radius: 4px;
+  font-weight: 600;
+  color: #4e4a59; /* base text color */
+  background: transparent; /* ❌ removed background */
+  border: 1.5px solid #4e4a59;
+  border-radius: 6px;
   cursor: pointer;
-  background: linear-gradient(
-    to bottom right,
-    #4e4a59,
-    #6b6777
-  ); /* gradient dark theme */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
-/* Hover effect */
-.page-btn:hover {
-  background: linear-gradient(
-    to bottom right,
-    #6b6777,
-    #7d7a88
-  ); /* lighter on hover */
-  color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+/* Hover state */
+.page-btn:hover:not(:disabled):not(.active) {
+  color: #6b6777;
+  border-color: #6b6777;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* Active button */
+/* Active page */
 .page-btn.active {
-  background-color: #4e4a59; /* main theme color */
-  color: #f1f5f9; /* light text */
-  border-color: #7d7a88; /* slightly lighter border */
+  color: #ffffff;
+  background-color: #4e4a59; /* highlight active only */
+  border-color: #4e4a59;
   cursor: default;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Disabled button */
-.page-btn.disabled,
-.page-btn:disabled {
-  background-color: #d1d1d8; /* light gray */
+.page-btn:disabled,
+.page-btn.disabled {
   color: #9ca3af;
+  border-color: #d1d5db;
   cursor: not-allowed;
   box-shadow: none;
 }
@@ -69,6 +59,9 @@
   outline: none;
   color: #374151;
   background-color: #f1f5f9;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease-in-out;
+  transition: border 0.2s ease;
+}
+
+.page-input:focus {
+  border-color: #4e4a59;
 }

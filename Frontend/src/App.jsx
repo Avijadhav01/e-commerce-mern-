@@ -25,6 +25,14 @@ import Payment from "./Cart/Payment.jsx";
 import PaymentSuccess from "./Cart/PaymentSuccess.jsx";
 import MyOrders from "./Order/MyOrders.jsx";
 import OrderDetails from "./Order/OrderDetails.jsx";
+import Dashboard from "./Admin/Dashboard.jsx";
+import ProductList from "./Admin/ProductList.jsx";
+import OrdersList from "./Admin/OrdersList.jsx";
+import CreateProduct from "./Admin/CreateProduct.jsx";
+import UpdateProduct from "./Admin/UpdateProduct.jsx";
+import UsersList from "./Admin/UsersList.jsx";
+import UpdateOrder from "./Admin/UpdateOrder.jsx";
+import ReviewList from "./Admin/ReviewList.jsx";
 
 function App() {
 
@@ -96,6 +104,46 @@ function App() {
           <Route
             path="/orders/:orderId"
             element={<ProtectedRoute element={<OrderDetails />} />}
+          />
+
+          <Route
+            path="/admin/dashboard"
+            element={<ProtectedRoute element={<Dashboard />} adminOnly={true} />}
+          />
+
+          <Route
+            path="/admin/products"
+            element={<ProtectedRoute element={<ProductList />} adminOnly={true} />}
+          />
+
+          <Route
+            path="/admin/product/create"
+            element={<ProtectedRoute element={<CreateProduct />} adminOnly={true} />}
+          />
+
+          <Route
+            path="/admin/product/:productId"
+            element={<ProtectedRoute element={<UpdateProduct />} adminOnly={true} />}
+          />
+
+          <Route
+            path="/admin/orders"
+            element={<ProtectedRoute element={<OrdersList />} adminOnly={true} />}
+          />
+
+          <Route
+            path="/admin/orders/:orderId"
+            element={<ProtectedRoute element={<UpdateOrder />} adminOnly={true} />}
+          />
+
+          <Route
+            path="/admin/users"
+            element={<ProtectedRoute element={<UsersList />} adminOnly={true} />}
+          />
+
+          <Route
+            path="/admin/reviews"
+            element={<ProtectedRoute element={<ReviewList />} adminOnly={true} />}
           />
 
         </Routes>

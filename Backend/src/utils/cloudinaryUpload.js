@@ -24,12 +24,11 @@ const uploadOnCloudinary = async (localFilePath) => {
 
     // 🔽 Uploading file to Cloudinary
     const result = await cloudinary.uploader.upload(localFilePath, {
-      folder: "Ecommerce", // ← this is your folder path
-
+      folder: "Ecommerce", // ← this is your folder path in cloudinary
       resource_type: "auto", // auto-detect (image, video, pdf, etc.)
     });
 
-    // ✅ Return only two useful fields
+    // ✅ Return only useful fields
     return {
       public_id: result.public_id,
       url: result.secure_url,
@@ -37,7 +36,7 @@ const uploadOnCloudinary = async (localFilePath) => {
     };
   } catch (error) {
     console.error("Error uploading file:", error);
-    throw new ApiError(500, "Cloudinary upload failed");
+    throw new ApiError("Cloudinary upload failed", 500);
   } finally {
     if (fs.existsSync(localFilePath)) fs.unlinkSync(localFilePath); // always cleanup
   }

@@ -52,18 +52,14 @@ router
 
 router.route("/password/update").post(verifyUserAuth, updateCurrPassword);
 
-// Delete user
 router
-  .route("/admin/user/:userId")
-  .post(verifyUserAuth, authorizeRoles("admin"), deleteUser);
-
-router
-  .route("/admin/users")
+  .route("/admin/fetchAll")
   .get(verifyUserAuth, authorizeRoles("admin"), getAllUsers);
 
 router
   .route("/admin/user/:userId")
   .get(verifyUserAuth, authorizeRoles("admin"), getSingleUser)
-  .put(verifyUserAuth, authorizeRoles("admin"), updateUserRole);
+  .patch(verifyUserAuth, authorizeRoles("admin"), updateUserRole)
+  .delete(verifyUserAuth, authorizeRoles("admin"), deleteUser);
 
 export default router;

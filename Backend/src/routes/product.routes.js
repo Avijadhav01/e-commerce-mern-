@@ -21,8 +21,9 @@ router.route("/get-all").get(getAllProducts);
 
 router.route("/:id").get(getProductById);
 
+// admin routes
 router
-  .route("/admin/product/create")
+  .route("/admin/create")
   .post(
     verifyUserAuth,
     authorizeRoles("admin"),
@@ -31,12 +32,17 @@ router
   );
 
 router
-  .route("/admin/products")
+  .route("/admin/getAll")
   .get(verifyUserAuth, authorizeRoles("admin"), getAdminProducts);
 
 router
-  .route("/admin/product/:id")
-  .put(verifyUserAuth, authorizeRoles("admin"), updateProduct)
+  .route("/admin/product/:productId")
+  .put(
+    verifyUserAuth,
+    authorizeRoles("admin"),
+    Upload.array("productImages", 5),
+    updateProduct
+  )
   .delete(verifyUserAuth, authorizeRoles("admin"), deleteProduct);
 
 export default router;

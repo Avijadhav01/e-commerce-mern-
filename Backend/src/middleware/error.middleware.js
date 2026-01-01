@@ -1,5 +1,6 @@
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
+import multer from "multer";
 
 // Global Error Handling Middleware
 const errorMiddleware = (err, req, res, next) => {
@@ -33,8 +34,27 @@ const errorMiddleware = (err, req, res, next) => {
     message = err.message;
   }
 
-  // 🔹 Log minimal info to console
-  console.error(`\n💥Error: ${err.name} | Message: ${message}`);
+  // 🔹 Multer errors
+  else if (err instanceof multer.MulterError) {
+    statusCode = 400;
+
+    if (err.code === "LIMIT_FILE_SIZE") {
+      message = "File size too large";
+    } else if (err.code === "LIMIT_UNEXPECTED_FILE") {
+      message = "Unexpected file field";
+    } else {
+      message = "File upload error";
+    }
+  }
+
+  // 🔹 ECONNRESET (upload interrupted)
+  else if (err.code === "ECONNRESET") {
+    statusCode = 400;
+    message = "Connection lost during file upload. Please try again.";
+  }
+
+  // 🔹 Log clean error
+  console.error(`\n💥 ${err.name || "Error"} | ${message}`);
 
   // 🔹 Send clean JSON response
   return res

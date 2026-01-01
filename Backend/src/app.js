@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middleware/error.middleware.js";
-// import dotenv from "dotenv";
+
 // Router imports
 import productRouter from "./routes/product.routes.js";
 import userRouter from "./routes/user.routes.js";
@@ -47,7 +47,5 @@ app.use((req, res, next) => {
 
 // ⚠️ Error middleware (last)
 app.use(errorMiddleware);
-
-// dotenv.config({ path: "../.env" });
 
 export { app };

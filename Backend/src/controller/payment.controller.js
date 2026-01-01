@@ -1,4 +1,3 @@
-import { instance } from "../server.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { AsyncHandler } from "../utils/AsyncHandler.js";
@@ -6,18 +5,25 @@ import crypto from "crypto";
 
 import { Order } from "../models/order.model.js";
 import { Product } from "../models/product.model.js";
+import { instance } from "../server.js";
 
 const processPayment = AsyncHandler(async (req, res) => {
   const { amount } = req.body;
 
-  if (!amount) return new ApiError("Amount is required", 400);
+  if (!amount) throw new ApiError("Amount is required", 400);
+
+  const amountInPaise = Math.round(Number(amount) * 100);
+  console.log(amountInPaise);
 
   const options = {
-    amount: Number(amount * 100),
+    amount: amountInPaise,
     currency: "INR",
   };
 
   const order = await instance.orders.create(options);
+  if (!order) {
+    throw new ApiError("Failed to create payment order", 400);
+  }
 
   return res
     .status(200)

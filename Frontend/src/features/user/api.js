@@ -8,6 +8,7 @@ const api = axios.create({
     "Cache-Control": "no-cache",
     Pragma: "no-cache",
   },
+  credentials: "include", // send cookies
 });
 
 // To avoid multiple refresh calls at the same time
@@ -36,6 +37,7 @@ api.interceptors.response.use(
         try {
           // Call refresh endpoint
           const { data } = await api.post("/users/refresh/accessToken");
+          console.log(data);
           const newToken = data?.data?.accessToken;
           if (newToken) {
             // Update default headers with new token

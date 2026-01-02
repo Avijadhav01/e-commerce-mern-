@@ -2,8 +2,10 @@ import { app } from "./app.js";
 import dotenv from "dotenv";
 import { connectDB } from "./db/db.js";
 import Razorpay from "razorpay";
-dotenv.config({ path: "../.env" });
 
+if (process.env.NODE_ENV !== "PRODUCTION") {
+  dotenv.config({ path: "../.env" });
+}
 // 🔹 Handle uncaught exceptions (sync code errors)
 process.on("uncaughtException", (err) => {
   console.error(`🔥 Uncaught Exception: ${err.message}`);

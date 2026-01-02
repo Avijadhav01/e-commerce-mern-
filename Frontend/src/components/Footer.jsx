@@ -10,12 +10,14 @@ function Footer() {
         {/* Section 1: Contact */}
         <div className="footer-section contact">
           <h3 >Contact Us</h3>
-          <p >
-            <FaPhoneAlt /> +9699403305
-          </p>
-          <p >
-            <FaEnvelope /> avip3460@gmail.com
-          </p>
+          <div>
+            <p >
+              <FaPhoneAlt className="social-icon" /> +9699403305
+            </p>
+            <p >
+              <FaEnvelope className="social-icon" /> avip3460@gmail.com
+            </p>
+          </div>
         </div>
 
         {/* Section 2: Social */}

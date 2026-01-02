@@ -11,19 +11,19 @@
 
 /* Buttons (no background) */
 .page-btn {
-  padding: 8px 12px;
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight: 600;
-  color: #4e4a59; /* base text color */
-  background: transparent; /* ❌ removed background */
-  border: 1.5px solid #4e4a59;
+  background: transparent;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
 }
+.page-btn svg {
+  color: var(--text-primary);
+}
 
 /* Hover state */
-.page-btn:hover:not(:disabled):not(.active) {
+.page-btn:hover(:disabled):not(.active) {
   color: #6b6777;
   border-color: #6b6777;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);

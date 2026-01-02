@@ -12,27 +12,52 @@ import Pagination from '../components/Pagination';
 import ProductCard from '../components/ProductCard';
 import Loader from '../components/Loader';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 function Products() {
 
   const { searchKeyword, loading, products, currPage, isNextPage, isPrevPage, totalPages, error } = useSelector((state) => state.product);
 
-  const categories = ["Electronics", "Clothes", "Shoes", "Mobiles", "Vehicle", "Bags", "Makeup"];
-  const brands = ["Nike", "Adidas", "Puma"];
-
+  const categories = [
+    "Electronics",
+    "Clothing",
+    "Footwear",
+    "Home & Kitchen",
+    "Furniture",
+    "Books",
+    "Beauty & Personal Care",
+    "Health & Wellness",
+    "Grocery",
+    "Sports & Fitness",
+    "Toys & Games",
+    "Mobile Accessories",
+    "Laptops & Computers",
+    "Watches",
+    "Jewelry",
+    "Bags & Luggage",
+    "Automotive",
+    "Appliances",
+    "Stationery",
+    "Other",
+  ]
 
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedGender, setSelectedGender] = useState("Male");
-  const [selectedPrice, setSelectedPrice] = useState("");
+  const [selectedPrice, setSelectedPrice] = useState({
+    min: 0,
+    max: 100000
+  });
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getProducts({
       keyword: searchKeyword,
       category: selectedCategory,
+      min: selectedPrice.min || 0,
+      max: selectedPrice.max || 100000,
       limit: 8,
     }));
-  }, [searchKeyword, selectedCategory, dispatch]);
+  }, [searchKeyword, selectedCategory, selectedPrice, dispatch]);
 
   useEffect(() => {
     return () => {
@@ -42,23 +67,33 @@ function Products() {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
-      // toast.error(error);
+      // console.log(error);
+      toast.error(error);
       dispatch(removeErrors());
     }
   }, [error, dispatch]);
 
   const handleFilterChange = (key, value) => {
+    // console.log(key, value)
     if (key === "category") {
       setSelectedCategory(value);
     } else if (key === "price") {
-      setSelectedPrice(value);
+      setSelectedPrice({
+        min: value.min,
+        max: value.max
+      })
     }
   };
 
-
   const handlePageChange = (page) => {
-    dispatch(getProducts({ keyword: searchKeyword, category: selectedCategory, page: page, limit: 8 }));
+    dispatch(getProducts({
+      keyword: searchKeyword,
+      category: selectedCategory,
+      min: selectedPrice.min || 0,
+      max: selectedPrice.max || 100000,
+      page: page,
+      limit: 8
+    }));
   }
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -69,6 +104,16 @@ function Products() {
     });
   };
 
+  const clearAllFilters = () => {
+    setSelectedCategory("");
+    setSelectedPrice({ min: 0, max: 100000 });
+
+    dispatch(getProducts({
+      keyword: searchKeyword,
+      page: 1,
+      limit: 8
+    }));
+  }
 
   return (
     <>
@@ -87,9 +132,9 @@ function Products() {
           className={`filter-section ${isFilterOpen ? 'active' : ""}`}>
           <FilterSection
             categories={categories}
-            brands={brands}
-            selectedGender={selectedGender}
             onFilterChange={handleFilterChange}
+            onClearClick={clearAllFilters}
+            selectedCategory={selectedCategory}
           />
         </div>
 
@@ -106,17 +151,20 @@ function Products() {
             )}
 
           </div>
-          <div className="divider"></div>
+
+          {/* <div className="divider"></div> */}
           <Pagination
             currPage={currPage}
             isNextPage={isNextPage}
             isPrevPage={isPrevPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
+            priceRange={selectedPrice}
           />
         </div>
-      </div>
 
+      </div>
+      <Footer />
     </>
   )
 }

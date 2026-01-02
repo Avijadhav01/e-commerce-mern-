@@ -212,15 +212,15 @@ function ProductDetails() {
                   </div>
 
                   {product?.stock > 0 ?
-                    (<div className="quantity-controls">
+                    (<div className="quantity-control">
                       <span className="quantity-lable">Quantity:</span>
-                      <button className='quantity-button' onClick={decreaseQuantity}>
+                      <button className='quantity-buttons' onClick={decreaseQuantity}>
                         -
                       </button>
                       <input type="number" value={quantity}
                         className='quantity-value' readOnly
                       />
-                      <button className='quantity-button' onClick={increaseQuantity}>
+                      <button className='quantity-buttons' onClick={increaseQuantity}>
                         +
                       </button>
                     </div>) : null}
@@ -269,7 +269,9 @@ function ProductDetails() {
                 <div className="review-section" >
                   {
                     reviews && reviews.length === 0 ? (
-                      <p className="no-reviews">This product has no reviews yet.</p>
+                      <p className="no-reviews">
+                        📝 Be the first to review
+                      </p>
                     ) :
                       reviews?.map((review) => (
                         <Review
@@ -280,14 +282,16 @@ function ProductDetails() {
                       ))
                   }
                 </div>
+                {
+                  reviews && reviews.length === 0 ? null :
+                    <Pagination currPage={currPage}
+                      isNextPage={isNextPage}
+                      isPrevPage={isPrevPage}
+                      totalPages={totalPages}
+                      onPageChange={handlePageChange}
+                    />
+                }
               </div>
-              <Pagination
-                currPage={currPage}
-                isNextPage={isNextPage}
-                isPrevPage={isPrevPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-              />
             </>)
         }
       </div>

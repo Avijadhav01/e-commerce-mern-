@@ -81,7 +81,7 @@ function OrdersList() {
                               {order?.paymentInfo.status}
                             </td>
                             <td
-                              className={`order-status ${order?.orderStatus.toLocaleLowerCase()}`}>
+                              className={`order-status ${order?.orderStatus}`}>
                               {order?.orderStatus}
                             </td>
                             <td>

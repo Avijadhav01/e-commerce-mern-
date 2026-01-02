@@ -1,36 +1,40 @@
 /* Container */
 .product-filters {
-  min-width: 300px;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 16px;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  box-sizing: border-box;
+  min-height: calc(100vh - 65px);
+  width: 280px;
+  background-color: var(--bg-primary);
+  border-radius: 5px;
+  padding: 20px 15px;
+
+  overflow-y: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 
 /* Filter group */
 .filter-group {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  /* gap: 5px; */
+  width: 100%;
+  margin-bottom: 30px;
 }
 
 /* Label */
 .filter-label {
   font-weight: 600;
-  font-size: 14px;
-  color: #374151;
+  font-size: 18px;
+  color: var(--text-primary);
 }
 
 /* Select */
 .filter-select {
   width: 100%;
-  padding: 2px 4px;
+  padding: 5px 10px;
   font-size: 16px;
-  border: 1px solid #d1d5db;
+  color: var(--text-primary);
+
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   outline: none;
   transition: all 0.2s ease-in-out;
@@ -42,14 +46,15 @@
 }
 
 /* Options container */
-.filter-options {
+.category-options {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 4px;
   font-size: 14px;
-  color: #374151;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
 }
 
 /* Checkbox */
@@ -60,20 +65,56 @@
   height: 16px;
 }
 
-/* Radio */
-.filter-radio {
-  accent-color: #4e4a59;
-  cursor: pointer;
-  width: 16px;
-  height: 16px;
+.price-bar-container {
+  width: 320px;
+  font-family: Arial, sans-serif;
 }
 
-/* Label for checkbox/radio */
-.filter-option-label {
+label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 6px;
+}
+
+.price-values {
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  gap: 6px;
-  cursor: pointer;
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-btn);
+}
+
+.price-values span {
+  background: var(--bg-btn);
+  padding: 6px 10px;
+  border-radius: 6px;
+  min-width: 80px;
+  text-align: center;
+}
+
+.price-values span:nth-child(2) {
+  background: transparent;
+  padding: 0;
+  min-width: auto;
+  color: #6b7280;
+}
+
+.clear-all-btn {
+  padding: 5px 10px;
+  background: #6b7280;
+  color: #fff;
+  border-radius: 12px;
+  font-size: 12px;
+
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 /* ------------------ Responsive Styles ------------------ */
@@ -82,14 +123,13 @@
 @media (max-width: 1024px) {
   .product-filters {
     max-width: 250px;
-    padding: 12px;
     gap: 12px;
   }
 
   .filter-label,
   .filter-select,
   .filter-options {
-    font-size: 13px;
+    font-size: 16px;
   }
 }
 
@@ -97,20 +137,12 @@
 @media (max-width: 992px) {
   .product-filters {
     max-width: 90%;
-    padding: 10px;
-    border-radius: 12px;
     gap: 10px;
   }
 
   .filter-label,
   .filter-select,
   .filter-options {
-    font-size: 12px;
-  }
-
-  .filter-checkbox,
-  .filter-radio {
-    width: 14px;
-    height: 14px;
+    font-size: 16px;
   }
 }

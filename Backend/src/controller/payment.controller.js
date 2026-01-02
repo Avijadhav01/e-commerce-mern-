@@ -59,10 +59,10 @@ const paymentVerification = AsyncHandler(async (req, res) => {
   if (!isAuthentic) {
     // Redirect to payment page with failure alert
 
-    order.orderStatus = "cancelled";
+    order.orderStatus = "Cancelled";
     order.isPaid = false;
     order.paymentInfo = {
-      status: "failed",
+      status: "Failed",
     };
 
     return res.redirect(
@@ -76,9 +76,9 @@ const paymentVerification = AsyncHandler(async (req, res) => {
   // Update order status
   order.paymentInfo = {
     id: razorpay_payment_id,
-    status: "paid",
+    status: "Paid",
   };
-  order.orderStatus = "processing";
+  order.orderStatus = "Processing";
   order.isPaid = true;
   order.paidAt = Date.now();
   await order.save();

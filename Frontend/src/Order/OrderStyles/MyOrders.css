@@ -2,17 +2,14 @@
   padding: 10px 20px;
   max-width: 1200px;
   min-height: 70vh;
-  margin: 60px auto 0;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* overflow-y: hidden; */
+  margin: 65px auto 0;
+  background-color: var(--bg-primary);
   box-sizing: unset;
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 10px;
 }
 
@@ -36,13 +33,13 @@ h1 {
 .orders-table th,
 .orders-table td {
   padding: 12px 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--text-primary);
+  color: var(--text-primary);
 }
 
 .orders-table th {
-  background-color: var(--bg-secondary);
+  background-color: var(--primary-dark);
   font-weight: bold;
-  color: var(--text-primary);
   position: sticky;
   top: 0;
 }
@@ -51,11 +48,11 @@ h1 {
 }
 
 .orders-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background: var(--bg-secondary);
 }
 
-.orders-table tbody tr:hover {
-  background-color: #f1f1f1;
+.orders-table tbody tr:nth-child(odd) {
+  background: var(--bg-primary);
 }
 
 .no-orders {
@@ -71,8 +68,11 @@ h1 {
   font-size: 30px;
 }
 
-.order-link {
-  color: var(--bg-secondary);
+.order-check-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
 }
 
 @media (max-width: 768px) {

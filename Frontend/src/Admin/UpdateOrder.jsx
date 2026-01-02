@@ -114,11 +114,11 @@ function UpdateOrder() {
         <div className="order-status">
           <h2>Update Status</h2>
           <select className="status-select"
-            value={selectedStatus || order?.orderStatus?.toLowerCase()}
+            value={selectedStatus || order?.orderStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}>
             {
               array.map((status) => (
-                <option value={status.toLowerCase()} key={status}>{status}</option>
+                <option value={status} key={status}>{status}</option>
               ))
             }
           </select>

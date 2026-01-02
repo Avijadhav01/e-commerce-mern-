@@ -3,45 +3,35 @@
   color: inherit;
 }
 
-.add-to-cart {
-  display: block;
-  margin: auto;
-}
-
-.product-card {
-  color: var(--text-primary);
-  box-shadow: var(--shadow-md);
+.product-card-container {
   border-radius: 2px;
   text-align: center;
   width: 200px;
-  height: 290px;
+  height: 300px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  /* margin: ; */
+
   display: flex;
   flex-direction: column;
   cursor: grab;
   padding: 5px;
+
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 0.5px solid var(--border-color);
+
+  position: relative;
 }
 
-.product-card:hover {
+.product-card-container:hover {
+  box-shadow: var(--shadow-md);
   transform: translateY(-5px);
-  box-shadow: var(--shadow-sm);
-}
-
-.product-image-card {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  max-height: 200px;
 }
 
 .product-image {
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  height: 125px;
-  width: 190px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height: 120px;
+  width: 180px;
   margin: 0px auto;
 }
 
@@ -49,8 +39,9 @@
   padding: 1rem;
 }
 
-.title-price {
-  font-size: 1rem;
+.title-price-cont {
+  height: 40px;
+  font-size: 20px;
   font-weight: 600;
   margin: 0.5rem;
   color: var(--bg-primary);
@@ -62,7 +53,14 @@
 .price {
   font-weight: 400;
   font-size: 14px;
-  color: var(--primary-main);
+  color: var(--text-primary);
+}
+
+.product-name-cart {
+  text-align: left;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-primary);
 }
 
 .rating_container {
@@ -73,17 +71,18 @@
   justify-content: center;
 }
 
-.reviews {
+.reviews-count {
   font-size: 12px;
   font-weight: 600;
+  color: var(--text-primary);
 }
 
-.add-to-cart {
+.product-view {
   background-color: var(--primary-main);
-  color: var(--text-light);
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
+  border-radius: 2px;
+  padding: 0.3rem 0.5rem;
   margin: 5px auto;
   font-size: 1rem;
   cursor: pointer;
@@ -92,6 +91,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  bottom: 10px;
+  right: 25%;
+  width: 50%;
 }
 
 .add-to-cart:hover {
@@ -111,16 +114,9 @@
 }
 
 @media (max-width: 767px) {
-  .product-card {
-    height: 250px;
-    width: 160px;
-  }
-
-  .add-to-cart {
-    margin: 0 auto;
-  }
-
-  .rating_container {
+  .product-card-container {
+    height: 260px;
+    width: 170px;
   }
 
   .reviews {
@@ -128,7 +124,7 @@
     padding: 5px;
   }
 
-  .add-to-cart {
+  .product-view {
     padding: 0.3rem 0.5rem;
     margin: 5px auto;
     font-size: 0.8rem;

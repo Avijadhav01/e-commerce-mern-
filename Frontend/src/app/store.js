@@ -6,6 +6,7 @@ import cartReducer from "../features/cart/cartSlice";
 import paymentReducer from "../features/payment/paymentSlice.js";
 import orderReducer from "../features/order/orderSlice.js";
 import adminReducer from "../features/Admin/adminSlice.js";
+import themeReducer from "../features/theme.js";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     payment: paymentReducer,
     order: orderReducer,
     admin: adminReducer,
+    theme: themeReducer,
   },
 });
 

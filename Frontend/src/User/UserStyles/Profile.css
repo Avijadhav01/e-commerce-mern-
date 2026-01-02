@@ -9,13 +9,11 @@
 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 40px;
-
   justify-content: center;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  align-items: center;
+  gap: 30px;
+
+  background: var(--bg-primary);
 }
 
 /* LEFT SECTION */
@@ -26,15 +24,14 @@
   align-items: center;
   width: 100%;
   padding: 20px;
-  background: #f7f7f8;
-  border-radius: 20px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  background: var(--bg-secondary);
+  border-radius: 10px;
 }
 
 .profile-heading {
   font-size: 26px;
   margin-bottom: 15px;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -43,14 +40,14 @@
   height: 150px;
   object-fit: cover;
   border-radius: 100%;
-  border: 2px solid #ddd;
+  border: 2px solid var(--primary-main);
   margin-bottom: 15px;
   cursor: pointer;
 }
 
 .profile-image-container a {
   padding: 8px 15px;
-  background: #6a65cf;
+  background: var(--primary-main);
   color: #fff;
   text-decoration: none;
   font-size: 15px;
@@ -59,7 +56,7 @@
 }
 
 .profile-image-container a:hover {
-  background: #4338ca;
+  opacity: 0.6;
 }
 
 /* RIGHT SECTION */
@@ -72,10 +69,9 @@
 }
 
 .profile-detail {
-  background: #f5f5f7;
+  background: var(--bg-secondary);
   padding: 10px 20px;
   border-radius: 16px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
   width: 100%;
@@ -84,14 +80,14 @@
 
 .profile-detail h2 {
   font-size: 18px;
-  color: #444;
+  color: var(--text-primary);
   font-weight: 600;
   width: 110px;
 }
 
 .profile-detail p {
   font-size: 16px;
-  color: #555;
+  color: var(--text-secondary);
   margin-left: 20px;
 }
 
@@ -104,8 +100,8 @@
 
 .profile-buttons a {
   padding: 0.875rem 2rem;
-  background-color: var(--border-color);
-  color: white;
+  background: var(--primary-main);
+  color: #fff;
   text-decoration: none;
   border-radius: 10px;
   transition: all 0.3s ease;
@@ -147,7 +143,7 @@
   max-height: 90vh;
   width: 500px;
   border-radius: 8px;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow-md);
   /* margin: auto; */
 }
 

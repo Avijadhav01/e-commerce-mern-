@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   align-items: center;
-  background: #f3f4f6; /* light clean background */
+  background: var(--bg-primary); /* light clean background */
   padding: 20px;
 }
 
@@ -16,11 +16,11 @@
 .form-content {
   width: 100%;
   max-width: 420px;
-  background: #ffffff;
+  background: var(--bg-secondary); /* light clean background */
   padding: 35px 40px;
-  border-radius: 18px;
+  border-radius: 8px;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-color);
 }
 
 .error-text {
@@ -34,13 +34,14 @@
   text-align: center;
   margin-bottom: 25px;
   font-size: 26px;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 /* Input Group */
 .input-group {
   margin-bottom: 18px;
+  color: var(--text-primary);
 }
 
 /* Input, Password, Email, File, Select */
@@ -48,24 +49,24 @@
 .input-group select {
   width: 100%;
   padding: 12px 15px;
-  border: 1px solid #5e5c69;
-  border-radius: 8px;
+  border: 0.5px solid #5e5c69;
+  border-radius: 4px;
   outline: none;
   font-size: 14px;
   transition: 0.2s ease-in-out;
-  background: #fdfdfd;
+  background: var(--bg-primary);
 }
 
 .input-group input:focus,
 .input-group select:focus {
   border-color: #43414d;
-  box-shadow: 0 0 5px rgba(94, 92, 105, 0.4);
+  box-shadow: var(--shadow-sm);
 }
 
 /* File input style improvement */
 .input-group input[type="file"] {
   padding: 8px;
-  background: #fafafa;
+  background: var(--bg-primary);
 }
 
 .avatar-preview {
@@ -79,7 +80,7 @@
   align-items: center;
   justify-content: center;
   background: #f7f7f7;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-sm);
 }
 
 .avatar-preview img {
@@ -92,7 +93,7 @@
 .input-group button {
   width: 100%;
   padding: 12px;
-  background: #5e5c69;
+  background: var(--primary-main);
   border: none;
   color: #fff;
   font-size: 16px;
@@ -102,26 +103,25 @@
 }
 
 .input-group button:hover {
-  background: #464450;
+  opacity: 0.7;
 }
 
 /* Form bottom link */
 .form-links {
   text-align: center;
   margin-top: 12px;
-  color: #555;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 
 .form-links a {
-  color: #5e5c69;
+  color: var(--primary-main);
   text-decoration: none;
   font-weight: 500;
 }
 
 .form-links a:hover {
   text-decoration: underline;
-  color: brown;
 }
 
 .btn:disabled,

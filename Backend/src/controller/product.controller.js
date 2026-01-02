@@ -47,20 +47,13 @@ const createProduct = AsyncHandler(async (req, res) => {
 // 2️⃣ Get All Products
 const getAllProducts = AsyncHandler(async (req, res) => {
   // 1) Get all query fields
-  const {
-    page = 1,
-    limit = 10,
-    keyword,
-    category,
-    minPrice,
-    maxPrice,
-  } = req.query;
+  const { page = 1, limit = 10, keyword, category, min, max } = req.query;
 
   // 2) Build filter Object
   const filters = {};
   if (category) filters.category = category;
-  if (minPrice) filters.price = { $gte: Number(minPrice) };
-  if (maxPrice) filters.price = { ...filters.price, $lte: Number(maxPrice) };
+  if (min) filters.price = { $gte: Number(min) };
+  if (max) filters.price = { ...filters.price, $lte: Number(max) };
 
   // 3) Build aggregation pipeline
   const aggregate = Product.aggregate([]);

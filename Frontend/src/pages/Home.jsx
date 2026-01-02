@@ -39,7 +39,6 @@ function Home() {
       <PageTitle title="Home -My Website " />
       <Navbar search={true} />
       <ImageSlider />
-      <div className="divider"></div>
       <div className='home-container'>
         <h2 className='home-heading'>Trending Now</h2>
         <div className="divider"></div>

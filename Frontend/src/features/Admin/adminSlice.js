@@ -161,8 +161,8 @@ export const fetchOrders = createAsyncThunk(
           limit: query?.limit || 20,
         },
       });
-      // console.log("Orders Backend responce: ", data.data.orders);
-      return data.data.orders;
+      console.log("Orders Backend responce: ", data.data.orders);
+      return data.data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||

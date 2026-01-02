@@ -17,9 +17,6 @@ function OrderDetails() {
     return new Date(isoDate).toISOString().slice(0, 10);
   };
 
-  useEffect(() => {
-    console.log(order);
-  }, [order])
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -38,11 +35,12 @@ function OrderDetails() {
       <PageTitle title={`${orderId}`} />
       <Navbar cartIconHide={true} />
       <div className='order-box'>
+        <h1 className='order-detail-title'>Order Details</h1>
         {/* Order Items Table */}
         <div className='table-block'>
           <h2 className='table-title'>Order Items</h2>
           <table className='table-main'>
-            <thead>
+            <thead className='table-head'>
               <tr>
                 <th className="head-cell">Image</th>
                 <th className="head-cell">Name</th>
@@ -59,7 +57,7 @@ function OrderDetails() {
                     </td>
                     <td className="table-cell">{item?.name}</td>
                     <td className="table-cell">{item?.quantity}</td>
-                    <td className="table-cell">{item?.price}</td>
+                    <td className="table-cell">₹ {item?.price}</td>
                   </tr>
                 ))
               }
@@ -73,13 +71,13 @@ function OrderDetails() {
           <table className="table-main">
             <tbody>
               <tr className="table-row">
-                <th className='table-cell'>Address</th>
+                <th className='table-cell'>Address : </th>
                 <td className='table-cell'>
                   {`${order?.shippingAddress?.street || ""}, ${order?.shippingAddress?.city || ""}, ${order?.shippingAddress?.state || ""}, ${order?.shippingAddress?.country || ""} - ${order?.shippingAddress?.postalCode || ""}`}
                 </td>
               </tr>
               <tr className="table-row">
-                <th className='table-cell'>Phone</th>
+                <th className='table-cell'>Phone : </th>
                 <td className='table-cell'>{order?.shippingAddress?.phone}</td>
               </tr>
             </tbody>
@@ -91,7 +89,7 @@ function OrderDetails() {
           <h2 className="table-title">Order Summary</h2>
           <table className='table-main'>
             <tbody>
-              <tr>
+              <tr className="table-row">
                 <th className="table-cell">Order Status</th>
                 <td className="table-cell">
                   <span className={`status-tag ${order?.orderStatus}`}>
@@ -99,7 +97,7 @@ function OrderDetails() {
                   </span>
                 </td>
               </tr>
-              <tr>
+              <tr className="table-row">
                 <th className="table-cell">Payment</th>
                 <td className="table-cell">
                   <span className={`status-tag ${order?.isPaid ? "paid" : "not-paid"}`}>
@@ -107,23 +105,23 @@ function OrderDetails() {
                   </span>
                 </td>
               </tr>
-              <tr>
+              <tr className="table-row">
                 <th className="table-cell">Paid At</th>
                 <td className="table-cell">
                   {order?.paidAt ? formatDateOnly(order.paidAt) : "-"}
                 </td>
               </tr>
-              <tr>
+              <tr className="table-row">
                 <th className="table-cell">Items Price</th>
                 <td className="table-cell">{order?.priceDetails?.itemsPrice} /-
                 </td>
               </tr>
-              <tr>
+              <tr className="table-row">
                 <th className="table-cell">Tax Price</th>
                 <td className="table-cell">{order?.priceDetails?.taxPrice} /-
                 </td>
               </tr>
-              <tr>
+              <tr className="table-row">
                 <th className="table-cell">Shipping Price</th>
                 <td className="table-cell">
                   {order?.priceDetails?.shippingPrice == 0 ?
@@ -131,7 +129,7 @@ function OrderDetails() {
                     : `${order?.priceDetails?.shippingPrice} /-`}
                 </td>
               </tr>
-              <tr>
+              <tr className="table-row">
                 <th className="table-cell">Total Price</th>
                 <td className="table-cell">{order?.priceDetails?.totalPrice} /-
                 </td>

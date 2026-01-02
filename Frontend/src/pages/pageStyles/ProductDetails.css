@@ -1,16 +1,16 @@
 /* --- Outer Product Details Container --- */
 .product-details-container {
   max-width: 1300px;
-  margin: 30px auto;
-  background-color: #fffbff;
-  border-radius: 16px;
+  margin: auto;
+  margin-top: 65px;
+  background-color: var(--bg-primary);
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
 }
 
 .product-detail-container {
-  width: 90%;
+  width: 100%;
   margin: 10px auto;
   margin-top: 50px;
   padding: 20px;
@@ -30,7 +30,7 @@
 }
 
 .product-detail-image {
-  width: 500px;
+  width: 600px;
   height: 350px;
 
   border-radius: 12px;
@@ -61,7 +61,7 @@
 }
 
 .thumbnail-image.selected {
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-sm);
   scale: 0.9;
 }
 
@@ -77,8 +77,8 @@
 .product-info h2 {
   font-size: 30px;
   font-weight: 700;
-  color: #222020;
-  /* padding: 0px 10px; */
+  color: var(--text-primary);
+  padding: 0px 10px;
 }
 
 .product-name {
@@ -88,13 +88,13 @@
   gap: 5rem;
   font-size: 20px;
   font-weight: 600;
-  color: var(--primary-main);
+  color: var(--text-secondary);
 }
 
 .product-description {
   line-height: 1;
   font-size: 16px;
-  color: #555;
+  color: var(--text-secondary);
   margin: 10px 0px;
 }
 
@@ -108,7 +108,7 @@
 
 .productCardSpan {
   font-size: 14px;
-  color: #666;
+  color: var(--text-primary);
 }
 
 /* --- Stock Status --- */
@@ -127,74 +127,64 @@
 }
 
 /* --- Quantity Selector --- */
-.quantity-controls {
+.quantity-control {
   display: flex;
   align-items: center;
   gap: 10px;
   margin: 10px 0;
+  background: var(--bg-primary);
 }
 
 .quantity-lable {
   font-size: 16px;
-  color: #444;
+  color: var(--text-primary);
   font-weight: 500;
+  background: var(--bg-primary);
 }
 
-.quantity-button {
+.quantity-buttons {
   width: 32px;
   height: 32px;
   border-radius: 6px;
   border: none;
-  background: #2e2e3c;
-  color: #ffffff;
+  background: var(--bg-btn);
+  color: var(--color-btn);
   cursor: pointer;
   font-size: 18px;
   transition: 0.2s;
 }
 
-.quantity-button:hover {
-  background: #53535b;
-}
-
-.quantity-button:active {
+.quantity-buttons:active {
   transform: scale(0.95);
-
-  background: #ddd;
 }
 
-.quantity-button:focus {
+.quantity-buttons:focus {
   outline: none;
   box-shadow: none;
 }
 
 .quantity-value {
   width: 50px;
+  border-radius: 5px;
   text-align: center;
-  padding: 5px 6px;
-  border-radius: 10px;
-  border: 0.5px solid #ccc;
   font-size: 16px;
-  background: #dbdbdb;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 /* --- Add to Cart Button --- */
 .add-to-cart-btn {
-  padding: 12px 20px;
-  background: #2e2e3c;
+  padding: 10px;
+  background: var(--bg-btn);
+  color: var(--color-btn);
   border: none;
   border-radius: 8px;
-  color: white;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   width: 100%;
   transition: 0.3s ease;
   margin-top: 10px;
-}
-
-.add-to-cart-btn:hover {
-  background: #ddd;
-  color: #222;
 }
 
 .add-to-cart-btn:focus {
@@ -211,11 +201,13 @@
 .review-container {
   /* margin-top: 30px; */
   padding: 20px;
-  background: #fafafa;
+  background: var(--bg-primary);
   border-radius: 10px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid var(--bg-secondary);
   min-width: 95%;
   margin: 10px auto;
+
+  color: var(--text-primary);
 }
 
 .review-form {
@@ -229,6 +221,7 @@
   font-size: 18px;
   font-weight: 600;
   text-align: center;
+  color: var(--text-primary);
 }
 
 .review-input {
@@ -236,32 +229,29 @@
   height: 120px;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--bg-primary);
   resize: none;
   font-size: 15px;
-  background: #fff;
+  background: var(--bg-secondary);
 }
 
 .review-input:focus {
   outline: none;
+  background: var(--text-primary);
+  color: var(--color-btn);
 }
 
 .submit-review-btn {
-  background: var(--bg-primary);
-  color: white;
+  background: var(--bg-btn);
+  color: var(--color-btn);
   padding: 10px 10px;
   border: none;
   border-radius: 4px;
   font-weight: 600;
   transition: all 0.6s;
   cursor: pointer;
-  width: 60%;
+  width: 100%;
   margin: 0px auto;
-}
-
-.submit-review-btn:hover {
-  background: #ddd;
-  color: #222;
 }
 
 .submit-review-btn:focus {
@@ -274,18 +264,16 @@
   width: 100%;
   height: 270px;
   margin-top: 10px;
-  padding: 20px 25px;
-  background: #ffffff;
-  border-radius: 10px;
-  border: 0.5px solid #ddd;
+  padding: 20px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 /* Title */
 .reviews-container h3 {
-  font-size: 24px;
-  color: #222;
+  font-size: 22px;
+  color: var(--text-primary);
   font-weight: 700;
-  font-family: "Times New Roman", Times, serif;
   text-align: center;
   margin-bottom: 20px;
   border-left: 5px solid #4a90e2;
@@ -302,22 +290,17 @@
   padding: 10px 20px;
   margin-bottom: 5px;
   border-radius: 5px;
-  background: #f7f9fc;
-  border: 1px solid #e4e6eb;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 0.1px solid #818181;
   transition: 0.2s ease-in-out;
   position: relative;
-}
-
-.review-item:hover {
-  background: #eef3fb;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* Review comment text */
 .review-comment {
   font-size: 15px;
   line-height: 1.3;
-  color: #333;
   margin-top: 5px;
 }
 
@@ -325,7 +308,6 @@
 .review-name {
   font-size: 10px;
   font-weight: 500;
-  color: #4a4a4a;
   text-align: right;
   font-style: italic;
 }
@@ -333,11 +315,17 @@
 /* If no reviews */
 .no-reviews {
   padding: 30px 20px;
+  height: 200px;
+  width: 100%;
   font-size: 15px;
-  color: #666;
+  background: var(--bg-secondary);
   text-align: center;
-  background: #fafafa;
+  color: var(--text-secondary);
   border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .stock-status {
@@ -370,12 +358,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 30px;
     padding: 0px 10px;
-  }
-
-  .product-detail-image {
-    margin-top: 40px;
+    margin-top: 10px;
   }
 
   .reviews-container {

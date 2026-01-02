@@ -57,26 +57,12 @@ const createOrder = AsyncHandler(async (req, res) => {
     paymentInfo: {
       status: "created", // created | paid | failed
     },
-    orderStatus: "pending",
+    orderStatus: "Pending",
   });
 
   if (!order) {
     throw new ApiError("Order not found", 404);
   }
-
-  // Update stock one by one
-  // for (const item of orderItems) {
-  //   const product = await Product.findById(item.product);
-  //   if (!product) continue; // skip if not found
-
-  //   if (product.stock < item.quantity) {
-  //     throw new ApiError(`Not enough stock for ${product.name}`, 400);
-  //   }
-
-  //   // Reduce stock
-  //   product.stock -= item.quantity;
-  //   await product.save({ validateBeforeSave: false });
-  // }
 
   res
     .status(201)
@@ -200,13 +186,12 @@ const updateOrderStatus = AsyncHandler(async (req, res) => {
 
   const { orderStatus } = req.body;
   const allowedStatuses = [
-    "pending",
-    "processing",
-    "packed",
-    "shipped",
-    "delivered",
-    "cancelled",
-    "refunded",
+    "Processing",
+    "Packed",
+    "Shipped",
+    "Delivered",
+    "Cancelled",
+    "Refunded",
   ];
 
   if (!allowedStatuses.includes(orderStatus)) {
@@ -214,17 +199,17 @@ const updateOrderStatus = AsyncHandler(async (req, res) => {
   }
 
   // Prevent updating already finalized orders
-  if (["delivered", "cancelled", "refunded"].includes(order.orderStatus)) {
+  if (["Delivered", "Cancelled", "Refunded"].includes(order.orderStatus)) {
     throw new ApiError("Order status cannot be updated", 400);
   }
 
   order.orderStatus = orderStatus;
 
-  if (orderStatus === "delivered") {
+  if (orderStatus === "Delivered") {
     order.deliveredAt = Date.now();
   }
 
-  if (["cancelled", "refunded"].includes(orderStatus)) {
+  if (["Cancelled", "Refunded"].includes(orderStatus)) {
     await restoreStock(order.orderItems);
   }
 
@@ -245,7 +230,7 @@ const deleteOrder = AsyncHandler(async (req, res) => {
 
   // Only allow deletion if order is delivered, cancelled, or refunded
   if (
-    !["pending", "delivered", "cancelled", "refunded"].includes(
+    !["Pending", "Delivered", "Cancelled", "Refunded"].includes(
       order.orderStatus
     )
   ) {

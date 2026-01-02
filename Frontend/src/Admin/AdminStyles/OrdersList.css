@@ -42,23 +42,27 @@
   background-color: #f2f2f2;
 }
 
-.order-status.processing {
-  background-color: rgba(255, 0, 0, 0.1);
-  color: red;
+.order-status,
+.payment-status {
+  font-weight: 600;
+}
+.order-status.Processing {
+  background-color: rgba(64, 145, 206, 0.2);
+  color: rgb(9, 163, 235);
 }
 
-.order-status.delivered {
+.order-status.Delivered {
   background-color: rgba(0, 255, 0, 0.1);
   color: green;
 }
 
 /* Payment Status */
-.payment-status.failed {
+.payment-status.Failed {
   background-color: rgba(255, 0, 0, 0.1);
   color: red;
 }
 
-.payment-status.paid {
+.payment-status.Paid {
   background-color: rgba(0, 255, 0, 0.1);
   color: green;
 }

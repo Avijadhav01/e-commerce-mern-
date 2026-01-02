@@ -74,25 +74,23 @@ function Navbar({ search, cartIconHide }) {
             </ul>
           </div>
 
-          {search ?
-            (<div className={`search-container `}>
-              <form
-                className={`search-form active`}
-                onSubmit={handleSearchSubmit}>
-                <input type="text"
-                  className="search-input"
-                  autoComplete="off"
-                  placeholder='Search products..'
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <button type='submit'
-                  className='search-icon'>
-                  <FaSearch focusable="false" />
-                </button>
-              </form>
-            </div>) : null
-          }
+          {search ? (<div className={`search-container `}>
+            <form
+              className={`search-form active`}
+              onSubmit={handleSearchSubmit}>
+              <input type="text"
+                className="search-input"
+                autoComplete="off"
+                placeholder='Search products..'
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button type='submit'
+                className='search-icon'>
+                <FaSearch focusable="false" />
+              </button>
+            </form>
+          </div>) : null}
 
           <div className='navbar-icons'>
 
@@ -112,7 +110,6 @@ function Navbar({ search, cartIconHide }) {
             <div className='navbar-hamburger' onClick={toggleMenu}>
               {isMenuOpen ? <FaTimes className='icon' /> : <FaBars className='icon' />}
             </div>
-
           </div>
 
         </div>

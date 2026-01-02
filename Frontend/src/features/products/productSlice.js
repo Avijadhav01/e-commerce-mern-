@@ -17,9 +17,11 @@ export const getProducts = createAsyncThunk(
       const { data } = await api.get("/products/get-all", {
         params: {
           page: filter?.page || 1,
-          limit: filter?.limit || 8,
+          limit: filter?.limit || 10,
           keyword: filter?.keyword || "",
           category: filter?.category || "",
+          min: filter?.min || 0,
+          max: filter?.max || 100000,
         },
       });
       return data.data;

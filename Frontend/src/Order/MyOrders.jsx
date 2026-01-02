@@ -80,8 +80,8 @@ function MyOrders() {
                     <td>{order.orderStatus}</td>
                     <td>₹ {order.priceDetails.totalPrice}</td>
                     <td>
-                      <Link to={`/orders/${order._id}`} className="order-link">
-                        <MdLaunch />
+                      <Link to={`/orders/${order._id}`} className="order-check-link">
+                        <MdLaunch fontSize={22} />
                       </Link>
                     </td>
                   </tr>

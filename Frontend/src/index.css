@@ -6,22 +6,46 @@
 /* ============================
    ROOT THEME COLORS
 ============================ */
+/* Light Theme (default) */
 :root {
-  --primary-main: #6c5b7b;
-  --primary-dark: #4e4a59;
-  --primary-light: #f8b5b1;
+  --primary-main: #714895;
+  --primary-dark: #6f6788;
+  --primary-light: #f5908b;
 
-  --bg-primary: #2e2e3c;
-  --bg-secondary: #3b3b4f;
+  --bg-primary: #ffffff;
+  --bg-secondary: #e6e6e6;
 
-  --text-primary: #eae7e0;
-  --text-secondary: #b9a7a0;
-  --text-light: #ffffff;
+  --bg-btn: #414141;
+  --color-btn: #fbfbfbd8;
+
+  --text-primary: #111827;
+  --text-secondary: #474747;
 
   --border-color: #5c4a6f;
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark Theme */
+body.dark-theme {
+  --primary-main: #a779cf;
+  --primary-dark: #6f6788;
+  --primary-light: #d8918d;
+
+  --bg-primary: #2e2e30;
+  --bg-secondary: #252525;
+
+  --bg-btn: white;
+  --color-btn: #141414b9;
+
+  --text-primary: #eae7e0;
+  --text-secondary: #989898;
+
+  --border-color: #5c4a6f;
+
+  --shadow-sm: 0 1px 7px rgba(255, 255, 255, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(189, 189, 189, 0.7);
 }
 
 /* ============================
@@ -32,7 +56,7 @@ body {
   padding: 0;
   font-family: "Roboto", sans-serif;
   color: #222;
-  background-color: #fff;
+  background-color: var(--bg-primary);
 }
 
 /* ============================

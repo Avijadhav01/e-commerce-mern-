@@ -1,27 +1,6 @@
 /* ============================
-   OVERLAY
-============================ */
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s ease, visibility 0s 0.3s;
-  z-index: 509;
-}
-
-.overlay.show {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.3s ease, visibility 0s;
-}
-
-/* ============================
    MAIN LAYOUT
 ============================ */
-
 .products-layout {
   width: 100%;
   min-height: calc(100vh - 65px);
@@ -30,42 +9,39 @@
   overflow-x: hidden;
 
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: stretch;
 }
 
 /* ============================
    FILTER SECTION
 ============================ */
-
 .filter-section {
   height: calc(100vh - 65px);
-  z-index: 999;
-  border-right: 1px solid var(--border-color);
-  background: var(--bg-primary);
+  z-index: 900;
 }
 
 .filter-section.active {
-  display: flex;
+  display: block;
 }
 
+/* Filter toggle icon */
 .filter-icon {
   position: fixed;
-  top: 70px;
-  right: 5px;
-  color: var(--text-primary);
+  top: 72px;
+  right: 10px;
   z-index: 1100;
 
   display: none;
+  cursor: pointer;
+  color: var(--text-primary);
 }
 
 /* ============================
    PRODUCT SECTION
 ============================ */
-
 .product-section {
   width: 100%;
-  max-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -73,62 +49,46 @@
 /* ============================
    PRODUCTS GRID
 ============================ */
-
 .products-product-container {
   width: 100%;
-  height: 75vh;
-  /* margin: auto; */
+  height: calc(100vh - 140px);
   padding: 1rem;
 
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
+  place-items: center;
 
   overflow-y: auto;
-  scrollbar-width: none;
+  scrollbar-width: none; /* Firefox */
 }
 
-/* Chrome / Edge / Safari */
+/* Webkit Scrollbar */
 .products-product-container::-webkit-scrollbar {
   width: 6px;
 }
 
 .products-product-container::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: var(--bg-secondary);
   border-radius: 10px;
 }
 
 .products-product-container::-webkit-scrollbar-thumb {
-  background: #cfd8dc;
+  background: var(--border-color);
   border-radius: 10px;
 }
 
 .products-product-container::-webkit-scrollbar-thumb:hover {
-  background: #b0bec5;
+  background: var(--text-secondary);
 }
-
-/* ============================
-   PRODUCT CARD
-============================ */
-
-/* .product-card {
-  width: 100%;
-  max-width: 180px;
-  height: 270px;
-  margin: auto;
-
-  background: #fff;
-  border-radius: 8px;
-} */
 
 /* ============================
    EMPTY STATE
 ============================ */
-
 .no-products {
   width: 100%;
   height: 50vh;
-  padding: 10px 20px;
+  padding: 20px;
 
   display: flex;
   justify-content: center;
@@ -139,31 +99,40 @@
   color: var(--text-primary);
 
   background: var(--bg-primary);
-  border: 1px dashed #d0d7e2;
-  border-radius: 5px;
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
 
   animation: fadeIn 0.3s ease-in-out;
 }
 
+/* ============================
+   RESPONSIVE
+============================ */
 @media (max-width: 992px) {
   .filter-section {
-    background-color: #ffffff;
+    background: var(--bg-primary);
+  }
+
+  .overlay {
+    display: block;
   }
 }
 
 /* ============================
    MOBILE FILTER
 ============================ */
-
 @media (max-width: 800px) {
   .filter-section {
     display: none;
     position: fixed;
     top: 65px;
     left: 0;
-    background: var(--bg-primary);
+    /* width: 80%; */
+    height: calc(100vh - 65px);
+  }
 
-    border-radius: 0px;
+  .filter-section.active {
+    display: block;
   }
 
   .filter-icon {

@@ -3,17 +3,17 @@
   margin: 40px auto;
   margin-top: 65px;
   padding: 20px;
-  background-color: white;
+  background-color: var(--bg-primary);
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .reviews-list-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 600;
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .reviews-table {
@@ -26,21 +26,22 @@
 .reviews-table td {
   padding: 12px 15px;
   text-align: center;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 .reviews-table th {
-  background-color: var(--bg-secondary);
-  color: white;
+  background-color: var(--primary-main);
+  color: var(--color-btn);
   font-weight: 600;
 }
 
 .reviews-table td {
-  background-color: #f9f9f9;
+  background-color: var(--bg-secondary);
 }
 
 .reviews-table tr:hover {
-  background-color: #f1f1f1;
+  background-color: var(--primary-light);
 }
 
 .action-btn {
@@ -54,8 +55,12 @@
 }
 
 .view-btn {
-  background-color: var(--bg-secondary);
-  color: white;
+  background-color: var(--primary-main);
+  color: var(--color-btn);
+}
+
+.view-btn:hover {
+  background-color: var(--primary-dark);
 }
 
 .review-product-image {
@@ -64,10 +69,16 @@
   object-fit: cover;
   border-radius: 5px;
   margin: auto;
+  border: 1px solid var(--border-color);
 }
 
 .delete-btn {
-  background-color: rgba(240, 240, 240);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.delete-btn:hover {
+  background-color: var(--primary-light);
 }
 
 .reviews-details {
@@ -78,7 +89,7 @@
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .hide {

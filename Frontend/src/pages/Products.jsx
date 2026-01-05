@@ -125,8 +125,6 @@ function Products() {
         onClick={toggleFilterOpen}
       />
 
-      <div className={`overlay ${isFilterOpen ? 'show' : ''}`} onClick={toggleFilterOpen}></div>
-
       <div className="products-layout">
         <div
           className={`filter-section ${isFilterOpen ? 'active' : ""}`}>

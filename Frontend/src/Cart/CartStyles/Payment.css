@@ -1,55 +1,62 @@
-.payment-container {
-    height: 40vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .payment-container > * {
-    display: flex;
-    justify-content: center;
-    gap: 1rem; 
-  }
-  
-  .payment-go-back,
-  .payment-btn {
-    text-decoration: none;
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .payment-go-back {
-    color: #6c757d;
-    background-color: #f8f9fa;
-    border: 1px solid #6c757d;
-  }
-  
-  .payment-go-back:hover {
-    background-color: #6c757d;
-    color: white;
-  }
-  
-  .payment-btn {
-    color: white;
-    background-color: var(--bg-secondary);
-    border: none;
-  }
-  
-  .payment-btn:hover {
-    background-color: var(--bg-primary);
-  }
-  
+/* ===========================
+   Payment Page - Light & Dark Mode
+=========================== */
 
-  @media (min-width: 768px) {
-    .payment-container {
-      flex-direction: row; 
-      gap: 2rem; 
-    }
+.payment-container {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-primary);
+}
+
+.payment-container > * {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Go Back Button */
+.payment-go-back {
+  text-decoration: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--text-secondary);
+}
+
+.payment-go-back:hover {
+  background-color: var(--text-secondary);
+  color: var(--color-btn);
+}
+
+/* Payment Button */
+.payment-btn {
+  text-decoration: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: var(--color-btn);
+  background-color: var(--primary-main);
+  border: none;
+}
+
+.payment-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Responsive layout for wider screens */
+@media (min-width: 768px) {
+  .payment-container {
+    flex-direction: row;
+    gap: 2rem;
   }
-  
+}

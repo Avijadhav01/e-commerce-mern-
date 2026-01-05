@@ -104,7 +104,7 @@ function ProductList() {
                           </Link>
 
                           <button
-                            className="action-icon delete-icon"
+                            className="action-icon delete-product-icon"
                             onClick={() => handleDelete(product?._id)}>
                             <FaTrash />
                           </button>

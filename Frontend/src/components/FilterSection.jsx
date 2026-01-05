@@ -34,7 +34,7 @@ function FilterSection({
   }
 
   return (
-    <div className="product-filters">
+    <div className="filters-section">
 
       <button className="clear-all-btn"
         onClick={onClick}>

@@ -1,11 +1,8 @@
 .product-list-container {
-  padding: 20px 5px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  background-color: var(--bg-primary);
   height: calc(100vh - 100px);
   width: 100%;
-  margin-top: 20px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -13,8 +10,9 @@
 /* Title */
 .product-list-title {
   font-size: 24px;
-  margin-top: 80px;
-  color: #333;
+  padding: 10px 0;
+  margin-top: 65px;
+  color: var(--text-primary);
 }
 
 /* TABLE */
@@ -22,8 +20,8 @@
   width: 100%;
   min-height: 700px; /* 10 rows × 60px */
   border-collapse: collapse;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-secondary);
+  box-shadow: var(--shadow-sm);
   text-align: center;
 }
 
@@ -31,12 +29,12 @@
 .product-table th,
 .product-table td {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
 }
 
 .product-table th {
-  background-color: var(--bg-secondary);
-  color: #fff;
+  background-color: var(--primary-dark);
+  color: var(--text-primary);
 }
 
 /* FIXED ROW HEIGHT (MOST IMPORTANT) */
@@ -55,12 +53,19 @@
 
 /* Zebra striping */
 .product-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.product-table tr:nth-child(odd) {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 300;
 }
 
 /* Empty filler rows */
 .empty-row td {
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
 }
 
 /* Action icons */
@@ -80,16 +85,16 @@
 }
 
 .edit-icon:hover {
-  background-color: rgba(0, 123, 255, 0.1);
+  background-color: rgba(26, 119, 219, 0.1);
 }
 
-.delete-icon {
-  color: #f7364a;
+.delete-product-icon {
+  color: #b8051a;
   border: none;
   background-color: transparent;
 }
 
-.delete-icon:hover {
+.delete-product-icon:hover {
   background-color: rgba(220, 53, 69, 0.1);
   color: #f66675;
 }

@@ -32,7 +32,9 @@ function PaymentSuccess() {
         </div>
         <h1>Order Confirmed!</h1>
         <p>Your payment was successful. Reference ID <strong>{reference}</strong></p>
-        <Link className='explore-btn' to="/">Explore more Products</Link>
+        <Link className='explore-btn' to="/">
+          Explore more Products
+        </Link>
       </div>
     </>
   )

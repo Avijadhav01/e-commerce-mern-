@@ -1,16 +1,22 @@
+/* ===========================
+   Order Confirmation - Light & Dark Mode
+=========================== */
+
 .confirm-container {
   max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .confirm-header {
   text-align: center;
   font-size: 1.8rem;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .confirm-table-container {
@@ -22,10 +28,10 @@
 .confirm-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: white;
+  background-color: var(--bg-secondary);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .confirm-table caption {
@@ -33,24 +39,25 @@
   font-weight: bold;
   font-size: 1.2rem;
   margin: 10px;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .confirm-table th,
 .confirm-table td {
   text-align: left;
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
 }
 
 .confirm-table th {
-  background-color: #f0f0f0;
+  background-color: var(--bg-primary);
   font-weight: bold;
+  color: var(--text-primary);
 }
 
 .confirm-table td {
   font-size: 0.9rem;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .order-product-image {
@@ -66,16 +73,16 @@
   padding: 12px 30px;
   font-size: 1rem;
   font-weight: bold;
-  color: white;
-  background-color: var(--bg-primary);
+  color: var(--color-btn);
+  background-color: var(--primary-main);
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .proceed-button:hover {
-  background-color: var(--bg-secondary);
+  background-color: var(--primary-dark);
 }
 
 .product-row {
@@ -89,7 +96,9 @@
   cursor: pointer;
 }
 
-/* Responsive Design */
+/* ===========================
+   Responsive Design
+=========================== */
 @media (max-width: 768px) {
   .confirm-table-container {
     gap: 15px;

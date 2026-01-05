@@ -8,55 +8,59 @@
 ============================ */
 /* Light Theme (default) */
 :root {
-  --primary-main: #714895;
-  --primary-dark: #6f6788;
-  --primary-light: #f5908b;
+  --primary-main: #4a90e2; /* Fresh Blue */
+  --primary-dark: #357abd; /* Darker Blue */
+  --primary-light: #a3c9f1; /* Soft Blue Highlight */
 
-  --bg-primary: #ffffff;
-  --bg-secondary: #e6e6e6;
+  --bg-primary: #fdfdfd; /* Almost White */
+  --bg-secondary: #f5f5f5; /* Light Gray for cards/panels */
 
-  --bg-btn: #414141;
-  --color-btn: #fbfbfbd8;
+  --bg-btn: #4a90e2; /* Button Blue */
+  --color-btn: #ffffff; /* White text on buttons */
 
-  --text-primary: #111827;
-  --text-secondary: #474747;
+  --text-primary: #1c1c1e; /* Deep Gray, almost black */
+  --text-secondary: #5a5a5a; /* Medium Gray for secondary text */
 
-  --border-color: #5c4a6f;
+  --border-color: #d1d5db; /* Soft Gray Borders */
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Dark Theme */
 body.dark-theme {
-  --primary-main: #a779cf;
-  --primary-dark: #6f6788;
-  --primary-light: #d8918d;
+  --primary-main: #ff8c42; /* Warm Orange */
+  --primary-dark: #e07b3e; /* Darker Orange */
+  --primary-light: #ffb88c; /* Soft Orange Highlight */
 
-  --bg-primary: #2e2e30;
-  --bg-secondary: #252525;
+  --bg-primary: #1e1e2f; /* Dark Blue-Gray Background */
+  --bg-secondary: #2a2a3d; /* Slightly Lighter Panels */
 
-  --bg-btn: white;
-  --color-btn: #141414b9;
+  --bg-btn: #ff8c42; /* Orange Buttons */
+  --color-btn: #1e1e2f; /* Dark text on buttons */
 
-  --text-primary: #eae7e0;
-  --text-secondary: #989898;
+  --text-primary: #eae7e0; /* Off-White for readability */
+  --text-secondary: #b0b0b0; /* Gray for secondary text */
 
-  --border-color: #5c4a6f;
+  --border-color: #3d3d4f; /* Soft Dark Borders */
 
-  --shadow-sm: 0 1px 7px rgba(255, 255, 255, 0.2);
-  --shadow-md: 0 4px 6px -1px rgba(189, 189, 189, 0.7);
+  --shadow-sm: 0 1px 7px rgba(255, 140, 66, 0.3);
+  --shadow-md: 0 4px 6px rgba(255, 140, 66, 0.25);
 }
 
 /* ============================
    GLOBAL RESET
 ============================ */
+/* ============================
+   BODY
+============================ */
 body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
-  color: #222;
   background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* ============================
@@ -68,14 +72,14 @@ h3,
 .heading {
   font-family: "Montserrat", sans-serif;
   margin: 0;
-  color: #111;
+  color: var(--text-primary);
 }
 
 h4,
 h5,
 h6 {
   font-family: "Poppins", sans-serif;
-  color: #111;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -93,6 +97,10 @@ h3 {
   font-size: 1.5rem;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* ============================
    TEXT + BODY ELEMENTS
 ============================ */
@@ -105,6 +113,7 @@ button {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
+  color: var(--text-primary);
 }
 
 /* ============================
@@ -115,6 +124,7 @@ button {
 .emphasis-text {
   font-family: "Lora", serif;
   font-style: italic;
+  color: var(--primary-main);
 }
 
 /* ============================
@@ -126,6 +136,11 @@ button,
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   letter-spacing: 0.5px;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  border: none;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
 }
 
 /* ============================
@@ -134,7 +149,7 @@ button,
 .small-text,
 .caption {
   font-size: 0.85rem;
-  color: #555;
+  color: var(--text-secondary);
   font-family: "Roboto", sans-serif;
 }
 
@@ -150,5 +165,7 @@ button,
   font-family: sans-serif;
   padding: 5px 20px;
   font-weight: 500;
-  color: #2e2e3c;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  box-shadow: var(--shadow-sm);
 }

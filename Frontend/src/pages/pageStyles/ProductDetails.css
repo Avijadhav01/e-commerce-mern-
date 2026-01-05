@@ -1,8 +1,7 @@
 /* --- Outer Product Details Container --- */
 .product-details-container {
   max-width: 1300px;
-  margin: auto;
-  margin-top: 65px;
+  margin: 65px auto 0;
   background-color: var(--bg-primary);
   display: flex;
   flex-direction: column;
@@ -11,8 +10,7 @@
 
 .product-detail-container {
   width: 100%;
-  margin: 10px auto;
-  margin-top: 50px;
+  margin: 40px auto 10px;
   padding: 20px;
   display: flex;
   gap: 40px;
@@ -23,46 +21,48 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-
+  justify-content: center;
   height: 400px;
 }
 
 .product-detail-image {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   height: 350px;
-
   border-radius: 12px;
   object-fit: cover;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
+  box-shadow: var(--shadow-md);
 }
 
 .product-detail-image:hover {
   transform: scale(1.02);
 }
 
+/* Thumbnails */
 .product-thumbnails {
   margin-top: 20px;
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .thumbnail-image {
-  width: 80px;
-  height: 80px;
+  width: 75px;
+  height: 75px;
   object-fit: cover;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease; /* smooth animation */
+  transition: all 0.3s ease;
 }
 
 .thumbnail-image:hover {
-  transform: translateY(-5px); /* move up by 5px */
+  transform: translateY(-4px);
 }
 
 .thumbnail-image.selected {
   box-shadow: var(--shadow-sm);
-  scale: 0.9;
+  transform: scale(0.9);
 }
 
 /* --- Product Info Section --- */
@@ -71,39 +71,35 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 5px 10px;
+  padding: 10px;
 }
 
 .product-info h2 {
   font-size: 30px;
   font-weight: 700;
   color: var(--text-primary);
-  padding: 0px 10px;
 }
 
 .product-name {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 5rem;
+  gap: 3rem;
   font-size: 20px;
   font-weight: 600;
   color: var(--text-secondary);
 }
 
 .product-description {
-  line-height: 1;
   font-size: 16px;
+  line-height: 1.4;
   color: var(--text-secondary);
-  margin: 10px 0px;
 }
 
 /* --- Rating Section --- */
 .product-rating {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 40px;
+  gap: 30px;
 }
 
 .productCardSpan {
@@ -113,17 +109,17 @@
 
 /* --- Stock Status --- */
 .stock-status {
+  font-size: 16px;
+  font-weight: 600;
   margin: 10px 0;
 }
 
 .in-stock {
-  color: #1e8a25;
-  font-weight: 600;
+  color: #2e7d32;
 }
 
 .out-of-stock {
-  color: #d62828;
-  font-weight: 600;
+  color: #c62828;
 }
 
 /* --- Quantity Selector --- */
@@ -131,15 +127,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 10px 0;
-  background: var(--bg-primary);
 }
 
 .quantity-lable {
   font-size: 16px;
   color: var(--text-primary);
-  font-weight: 500;
-  background: var(--bg-primary);
 }
 
 .quantity-buttons {
@@ -158,23 +150,20 @@
   transform: scale(0.95);
 }
 
-.quantity-buttons:focus {
-  outline: none;
-  box-shadow: none;
-}
-
 .quantity-value {
   width: 50px;
-  border-radius: 5px;
   text-align: center;
   font-size: 16px;
+  border-radius: 5px;
   background: var(--bg-secondary);
   color: var(--text-primary);
 }
 
 /* --- Add to Cart Button --- */
 .add-to-cart-btn {
-  padding: 10px;
+  margin-top: 10px;
+  padding: 12px;
+  width: 100%;
   background: var(--bg-btn);
   color: var(--color-btn);
   border: none;
@@ -182,32 +171,26 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  width: 100%;
-  transition: 0.3s ease;
-  margin-top: 10px;
+  transition: opacity 0.3s ease;
 }
 
-.add-to-cart-btn:focus {
-  outline: none;
-  border: none;
+.add-to-cart-btn:hover {
+  opacity: 0.85;
 }
 
 .add-to-cart-btn:disabled {
-  background: #b2b2b2;
+  background: #b3b3b3;
   cursor: not-allowed;
 }
 
 /* --- Review Form --- */
 .review-container {
-  /* margin-top: 30px; */
   padding: 20px;
+  margin: 10px auto;
+  width: 95%;
   background: var(--bg-primary);
   border-radius: 10px;
-  border: 1px solid var(--bg-secondary);
-  min-width: 95%;
-  margin: 10px auto;
-
-  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
 .review-form {
@@ -217,148 +200,110 @@
 }
 
 .review-form h3 {
-  margin-bottom: 5px;
+  text-align: center;
   font-size: 18px;
   font-weight: 600;
-  text-align: center;
   color: var(--text-primary);
 }
 
 .review-input {
-  width: 100%;
   height: 120px;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid var(--bg-primary);
   resize: none;
   font-size: 15px;
   background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
 .review-input:focus {
   outline: none;
-  background: var(--text-primary);
-  color: var(--color-btn);
+  box-shadow: var(--shadow-sm);
 }
 
+/* Submit Review */
 .submit-review-btn {
+  padding: 10px;
+  width: 100%;
   background: var(--bg-btn);
   color: var(--color-btn);
-  padding: 10px 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 600;
-  transition: all 0.6s;
   cursor: pointer;
-  width: 100%;
-  margin: 0px auto;
 }
 
-.submit-review-btn:focus {
-  outline: none;
-  border: none;
-}
-
-/* Products Reviews Section Container */
+/* --- Reviews List --- */
 .reviews-container {
   width: 100%;
   height: 270px;
-  margin-top: 10px;
   padding: 20px;
   background: var(--bg-primary);
-  color: var(--text-primary);
 }
 
-/* Title */
 .reviews-container h3 {
-  font-size: 22px;
-  color: var(--text-primary);
-  font-weight: 700;
   text-align: center;
+  font-size: 22px;
+  font-weight: 700;
   margin-bottom: 20px;
-  border-left: 5px solid #4a90e2;
-  border-right: 5px solid #4a90e2;
-}
-
-/* Each review block */
-.review-section {
-  margin-bottom: 10px;
-}
-
-/* Review card */
-.review-item {
-  padding: 10px 20px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  background: var(--bg-secondary);
   color: var(--text-primary);
-  border: 0.1px solid #818181;
-  transition: 0.2s ease-in-out;
-  position: relative;
+  border-left: 5px solid var(--primary-main);
+  border-right: 5px solid var(--primary-main);
 }
 
-/* Review comment text */
+/* Review Card */
+.review-item {
+  position: relative;
+  padding: 10px 20px;
+  margin-bottom: 8px;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
 .review-comment {
   font-size: 15px;
   line-height: 1.3;
-  margin-top: 5px;
 }
 
-/* User name */
 .review-name {
-  font-size: 10px;
-  font-weight: 500;
-  text-align: right;
+  font-size: 11px;
   font-style: italic;
-}
-
-/* If no reviews */
-.no-reviews {
-  padding: 30px 20px;
-  height: 200px;
-  width: 100%;
-  font-size: 15px;
-  background: var(--bg-secondary);
-  text-align: center;
+  text-align: right;
   color: var(--text-secondary);
+}
+
+/* No reviews */
+.no-reviews {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
   border-radius: 8px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--text-secondary);
 }
 
-.stock-status {
-  color: #007600;
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.out-of-stock {
-  color: #b12704;
-}
-
+/* Delete / Icons */
 .icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-
   position: absolute;
+  top: 6px;
   right: 10px;
-  top: 5px;
-  z-index: 1000;
-
-  color: rgb(194, 3, 3);
+  display: flex;
+  gap: 6px;
   font-size: 14px;
+  color: #c62828;
 }
 
+/* ----------------------------
+   RESPONSIVE
+------------------------------*/
 @media (max-width: 808px) {
   .product-detail-container {
-    display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 0px 10px;
+    gap: 20px;
+    padding: 0 10px;
     margin-top: 10px;
   }
 
@@ -367,25 +312,9 @@
     padding: 10px;
   }
 
-  .review-item {
-    position: relative;
-  }
-
-  .review-header {
-    margin-bottom: 0px;
-  }
-
-  .review-comment {
-    margin-top: 10px;
-  }
-
   .review-name {
     position: absolute;
-    bottom: 0px;
+    bottom: 5px;
     right: 10px;
-  }
-
-  .product-image-container {
-    position: static;
   }
 }

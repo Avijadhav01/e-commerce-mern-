@@ -1,8 +1,8 @@
 .ordersList-container {
   padding: 20px 5px;
-  background-color: #f9f9f9;
+  background-color: var(--bg-secondary);
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   height: calc(100vh - 65px);
   margin-top: 70px;
 }
@@ -10,7 +10,7 @@
 .ordersList-title {
   font-size: 24px;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .ordersList-table-container {
@@ -22,32 +22,35 @@
 .ordersList-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .ordersList-table th,
 .ordersList-table td {
   text-align: center;
   padding: 10px 4px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 .ordersList-table th {
-  background-color: var(--bg-secondary);
-  color: #fff;
+  background-color: var(--primary-main);
+  color: var(--color-btn);
 }
 
 .ordersList-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: var(--bg-secondary);
 }
 
+/* Status styles */
 .order-status,
 .payment-status {
   font-weight: 600;
 }
+
 .order-status.Processing {
-  background-color: rgba(64, 145, 206, 0.2);
+  background-color: rgba(58, 163, 239, 0.2); /* light blue */
   color: rgb(9, 163, 235);
 }
 
@@ -56,7 +59,6 @@
   color: green;
 }
 
-/* Payment Status */
 .payment-status.Failed {
   background-color: rgba(255, 0, 0, 0.1);
   color: red;
@@ -83,7 +85,12 @@
 }
 
 .edit-icon:hover {
-  background-color: rgba(0, 123, 255, 0.1);
+  background-color: rgba(
+    0,
+    123,
+    255,
+    0.1
+  ); /* optional: can replace with theme-based hover */
 }
 
 .delete-icon {
@@ -103,8 +110,10 @@
   height: 100%;
   font-size: 34px;
   font-family: serif;
+  color: var(--text-secondary);
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .ordersList-table {
     font-size: 14px;

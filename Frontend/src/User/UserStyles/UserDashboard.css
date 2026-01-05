@@ -20,7 +20,6 @@
   border-radius: 50%;
   object-fit: cover;
   transition: all 0.2s ease-in;
-  /* White shadow */
   box-shadow: var(--shadow-md);
 }
 
@@ -33,6 +32,7 @@
   right: 20px;
   width: 250px;
   z-index: 1000;
+  color: var(--text-primary);
 }
 
 .menu-options.active {
@@ -47,12 +47,12 @@
   border-radius: 8px;
 
   background-color: var(--primary-dark);
-  color: var(--text-primary);
+  color: var(--color-btn);
   box-shadow: var(--shadow-sm);
 
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   display: flex;
   align-items: center;
@@ -62,8 +62,9 @@
 
 .menu-option-btn:hover {
   background-color: var(--primary-light);
-  color: var(--text-dark);
+  color: var(--text-primary);
 }
+
 .overlay {
   position: fixed;
   top: 0;
@@ -85,26 +86,26 @@
 
 .cart-not-empty {
   background-color: var(--primary-light);
-  color: var(--text-dark);
+  color: var(--text-primary);
 }
 
+/* ----------------------------
+   RESPONSIVE
+------------------------------*/
 @media (max-width: 1400px) {
-  .profile-header {
-    /* right: -50px; */
-  }
   .profile-name {
     font-size: 16px;
     font-weight: bold;
-    color: var(--text-light);
+    color: var(--text-primary);
   }
   .menu-options {
     top: 50px;
     right: -10px;
   }
 }
+
 @media (max-width: 780px) {
   .profile-header {
-    /* right: -40px; */
     margin: 8px 10px;
   }
 

@@ -1,28 +1,34 @@
-.star {
-  font-size: 1.4rem;
-  cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
-  color: aliceblue;
-}
-
+/* Star Rating Container */
 .rating {
   display: flex;
   gap: 2px;
 }
 
-.filled {
+/* Individual Star */
+.star {
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  color: var(--text-secondary); /* Default unfilled star color */
+}
+
+/* Filled Star */
+.star.filled {
   color: var(--primary-main);
 }
 
+/* Empty Star */
 .star.empty {
   color: var(--text-secondary);
 }
 
+/* Hover Effect */
 .star:hover {
   transform: scale(1.2);
   color: var(--primary-main);
 }
 
+/* Product Card Span (like reviews count) */
 .productCardSpan {
   font-size: 0.9rem;
   color: var(--text-secondary);

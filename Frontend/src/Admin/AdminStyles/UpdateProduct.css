@@ -1,16 +1,17 @@
 .update-product-wrapper {
   width: 700px;
-  margin: 40px auto;
+  margin: auto;
+  margin-top: 70px;
   padding: 32px;
-  background: #fff;
+  background: var(--bg-secondary);
   border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .update-product-title {
   font-size: 28px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   text-align: center;
   margin-bottom: 40px;
 }
@@ -29,26 +30,22 @@
   display: block;
   font-weight: 500;
   font-size: 17px;
-  color: var(--bg-secondary);
+  color: var(--text-secondary);
   margin-bottom: 8px;
 }
 
 .update-product-input,
-.update-product-textarea {
-  width: 90%;
-  padding: 12px 16px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  margin: 0 0 30px 0;
-}
+.update-product-textarea,
 .update-product-select {
-  margin: 0 auto 30px;
   width: 90%;
   padding: 12px 16px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   margin: 0 0 30px 0;
 }
+
 .update-product-textarea {
   height: 120px;
   resize: none;
@@ -56,14 +53,19 @@
 
 .update-product-file-wrapper {
   width: 100%;
-  /* padding: 16px; */
 }
 
 .update-product-file-input {
   width: 90%;
   padding: 12px 16px;
-  border: 2px dashed #e5e7eb;
+  border: 2px dashed var(--border-color);
   border-radius: 8px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
 }
 
 .update-product-preview-wrapper,
@@ -81,19 +83,25 @@
   height: 70px;
   object-fit: cover;
   border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-color);
 }
 
 .update-product-submit-btn {
   width: 100%;
   max-width: 720px;
   height: 48px;
-  background: var(--bg-secondary);
-  color: white;
+  background: var(--primary-main);
+  color: var(--color-btn);
   border: none;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.update-product-submit-btn:hover {
+  background-color: var(--primary-dark);
 }
 
 @media (max-width: 840px) {

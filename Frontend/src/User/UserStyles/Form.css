@@ -7,8 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  align-items: center;
-  background: var(--bg-primary); /* light clean background */
+  background: var(--bg-primary); /* dynamic light/dark background */
   padding: 20px;
 }
 
@@ -16,10 +15,10 @@
 .form-content {
   width: 100%;
   max-width: 420px;
-  background: var(--bg-secondary); /* light clean background */
+  background: var(--bg-secondary);
   padding: 35px 40px;
   border-radius: 8px;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--border-color);
 }
 
@@ -49,17 +48,18 @@
 .input-group select {
   width: 100%;
   padding: 12px 15px;
-  border: 0.5px solid #5e5c69;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   outline: none;
   font-size: 14px;
   transition: 0.2s ease-in-out;
   background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .input-group input:focus,
 .input-group select:focus {
-  border-color: #43414d;
+  border-color: var(--primary-main);
   box-shadow: var(--shadow-sm);
 }
 
@@ -67,6 +67,7 @@
 .input-group input[type="file"] {
   padding: 8px;
   background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .avatar-preview {
@@ -74,12 +75,12 @@
   height: 60px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #5e5c69;
+  border: 2px solid var(--border-color);
   margin: 10px auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f7f7f7;
+  background: var(--bg-secondary);
   box-shadow: var(--shadow-sm);
 }
 
@@ -95,15 +96,15 @@
   padding: 12px;
   background: var(--primary-main);
   border: none;
-  color: #fff;
+  color: var(--color-btn);
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
   transition: 0.2s;
 }
 
-.input-group button:hover {
-  opacity: 0.7;
+.input-group button:hover:not(:disabled) {
+  background: var(--primary-dark);
 }
 
 /* Form bottom link */
@@ -127,7 +128,7 @@
 .btn:disabled,
 .btn.disabled {
   background-color: #b3b3b3; /* greyed out */
-  cursor: not-allowed; /* disable cursor */
-  opacity: 0.7; /* faded */
-  pointer-events: none; /* no clicks */
+  cursor: not-allowed;
+  opacity: 0.7;
+  pointer-events: none;
 }

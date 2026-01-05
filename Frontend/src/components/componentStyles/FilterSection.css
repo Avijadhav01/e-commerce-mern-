@@ -1,5 +1,5 @@
 /* Container */
-.product-filters {
+.filters-section {
   min-height: calc(100vh - 65px);
   width: 280px;
   background-color: var(--bg-primary);
@@ -9,6 +9,9 @@
   overflow-y: auto;
   scrollbar-width: none;
   scroll-behavior: smooth;
+  position: relative;
+
+  border-right: 0.5px solid var(--border-color);
 }
 
 /* Filter group */

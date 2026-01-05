@@ -85,9 +85,11 @@ function Cart() {
                 <p className='total-lable'>{total}/- </p>
               </div>
               <button
-                className="checkout-btn"
+                className="checkout-button"
                 onClick={checkoutHandler}
-              >Checkout</button>
+              >
+                Checkout
+              </button>
             </div>
 
           </div>

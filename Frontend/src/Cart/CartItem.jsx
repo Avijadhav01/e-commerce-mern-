@@ -64,7 +64,9 @@ function CartItem({ product }) {
       </div>
 
       <div className="item-total">
-        <span className="item-total-price">₹{product?.price * quantity}.00</span>
+        <span className="item-total-price">
+          ₹{product?.price * quantity}.00
+        </span>
       </div>
 
       <div className="item-actions">

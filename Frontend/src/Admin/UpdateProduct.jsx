@@ -253,7 +253,7 @@ function UpdateProduct() {
               multiple
               onChange={handleFileChange}
             />
-            <div>{files.length} image selected</div>
+            <p>{files.length} image selected</p>
           </div>
 
           <label>NewImages: </label>

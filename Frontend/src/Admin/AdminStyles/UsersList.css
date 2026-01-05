@@ -1,8 +1,8 @@
 .usersList-container {
   padding: 20px 5px;
-  background-color: #f9f9f9;
+  background-color: var(--bg-secondary);
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
   height: calc(100vh - 65px);
   margin-top: 65px;
 
@@ -13,7 +13,7 @@
 .usersList-title {
   font-size: 24px;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .usersList-table-container {
@@ -25,15 +25,16 @@
 .usersList-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .usersList-table th,
 .usersList-table td {
   text-align: center;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 .usersList-table td {
@@ -49,12 +50,12 @@
 }
 
 .usersList-table th {
-  background-color: var(--bg-secondary);
-  color: #fff;
+  background-color: var(--primary-main);
+  color: var(--color-btn);
 }
 
 .usersList-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: var(--bg-secondary);
 }
 
 .action-icon {
@@ -73,7 +74,12 @@
 }
 
 .save-icon:hover {
-  background-color: rgba(0, 123, 255, 0.1);
+  background-color: rgba(
+    0,
+    123,
+    255,
+    0.1
+  ); /* optional, can use theme-based hover later */
 }
 
 .delete-icon {
@@ -88,7 +94,7 @@
 
 .loading-message {
   font-size: 18px;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {

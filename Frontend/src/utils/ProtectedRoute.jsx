@@ -6,7 +6,8 @@ import { Navigate } from "react-router-dom"
 function ProtectedRoute({ element, adminOnly = false }) {
   const { user, isAuthenticated, loading } = useSelector((state) => state.user);
 
-  if (loading) {
+  // Wait until authentication is checked
+  if (!isAuthChecked) {
     return <Loader />;
   }
 

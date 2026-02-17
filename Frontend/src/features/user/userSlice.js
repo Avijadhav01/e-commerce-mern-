@@ -135,6 +135,7 @@ const userSlice = createSlice({
     error: null,
     isAuthenticated: !!localStorage.getItem("user"),
     successMessage: "",
+    isAuthChecked: false, // ⭐ NEW
   },
 
   reducers: {
@@ -196,6 +197,7 @@ const userSlice = createSlice({
       .addCase(loadUser.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.isAuthChecked = false;
       })
       .addCase(loadUser.fulfilled, (state, action) => {
         // console.log("Fulfilled action payload: ", action.payload);
@@ -203,6 +205,7 @@ const userSlice = createSlice({
         state.error = null;
         state.user = action.payload.data;
         state.isAuthenticated = true;
+        state.isAuthChecked = true;
         localStorage.setItem("user", JSON.stringify(state.user));
       })
       .addCase(loadUser.rejected, (state, action) => {
@@ -212,6 +215,7 @@ const userSlice = createSlice({
         state.user = null;
         localStorage.removeItem("user");
         state.isAuthenticated = false;
+        state.isAuthChecked = true;
         // DO NOT set user to null here
       });
 

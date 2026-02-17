@@ -1,21 +1,19 @@
-import React from 'react'
-import Loader from '../components/Loader';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
 function PublicRoute({ element }) {
 
-  const { isAuthenticated, loading } = useSelector((state) => state.user);
+  const { isAuthenticated, isAuthChecked } =
+    useSelector((state) => state.user);
+
   const location = useLocation();
-  const redirect = new URLSearchParams(location.search).get("redirect") || "/"
 
-  if (loading) return <Loader />
+  const redirect =
+    new URLSearchParams(location.search).get("redirect") || "/";
 
-  // If user is logged in, redirect to home or profile
-  if (isAuthenticated) return <Navigate to={redirect} replace />
+  // Wait until auth check finishes
+  if (!isAuthChecked) return <Loader />;
 
+  // If already logged in → redirect
+  if (isAuthenticated)
+    return <Navigate to={redirect} replace />;
 
-  return element
+  return element;
 }
-
-export default PublicRoute;

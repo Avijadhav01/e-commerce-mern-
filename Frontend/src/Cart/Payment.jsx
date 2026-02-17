@@ -24,15 +24,12 @@ function Payment() {
       const { data: paymentOrder } = await dispatch(processPayment(amount)).unwrap();
       const { data: key } = await dispatch(getKey()).unwrap();
 
-      // console.log(paymentOrder);
-      // console.log(key);
-
       const productOrderId = order?._id
       const options = {
         key,
         amount: paymentOrder?.amount,
         currency: "INR",
-        name: "ShopEasy",
+        name: "CartNova",
         description: "Ecommerce Website Payment Transaction",
         order_id: paymentOrder?.id,
         callback_url: `${import.meta.env.VITE_API_URL}/api/v1/payments/verification?orderId=${productOrderId}`,

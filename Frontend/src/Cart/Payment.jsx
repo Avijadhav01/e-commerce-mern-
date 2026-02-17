@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import "./CartStyles/Payment.css"
-import PageTitle from '../components/pageTitle'
+import PageTitle from '../components/PageTitle'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import CheckoutPath from './CheckoutPath';

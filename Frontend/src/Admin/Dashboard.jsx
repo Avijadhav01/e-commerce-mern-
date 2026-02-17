@@ -15,7 +15,7 @@ import {
   FaTimes
 } from "react-icons/fa";
 
-import PageTitle from "../components/pageTitle"
+import PageTitle from "../components/PageTitle"
 import Navbar from "../components/Navbar";
 
 import { NavLink } from "react-router-dom";

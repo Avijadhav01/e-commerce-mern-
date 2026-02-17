@@ -1,6 +1,6 @@
 import React from 'react'
 import "./CartStyles/Cart.css";
-import PageTitle from '../components/pageTitle';
+import PageTitle from '../components/PageTitle';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 

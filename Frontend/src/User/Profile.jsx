@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
-import PageTitle from "../components/pageTitle";
+import PageTitle from "../components/PageTitle";
 
 import "./UserStyles/profile.css";
 

@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import ImageSlider from '../components/ImageSlider';
 import ProductCard from '../components/ProductCard';
-import PageTitle from '../components/pageTitle';
+import PageTitle from '../components/PageTitle';
 import { useSelector, useDispatch } from "react-redux"
 import { getProducts, removeErrors } from '../features/products/productSlice';
 import Loader from '../components/Loader';

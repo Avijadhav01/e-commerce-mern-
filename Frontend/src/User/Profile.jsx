@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import PageTitle from "../components/PageTitle";
 
-import "./UserStyles/profile.css";
+import "./UserStyles/Profile.css";
 
 const Profile = () => {
   const { user, loading, isAuthenticated } = useSelector(

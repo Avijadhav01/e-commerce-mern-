@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/api/v1",
+  baseURL: `${import.meta.env.VITE_API_URL}/api/v1`,
   headers: {
     "Cache-Control": "no-cache",
     Pragma: "no-cache",
@@ -28,7 +28,7 @@ export const getProducts = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 // GET PRODUCT DETAILS
@@ -41,7 +41,7 @@ export const getProductDetails = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 const productSlice = createSlice({

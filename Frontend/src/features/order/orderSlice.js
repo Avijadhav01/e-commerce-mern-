@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/api/v1",
+  baseURL: `${import.meta.env.VITE_API_URL}/api/v1`,
   withCredentials: true, // ✔ MUST be here
   headers: {
     "Cache-Control": "no-cache",
@@ -20,10 +20,12 @@ export const createOrder = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || error.message || "Something went wrong"
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong",
       );
     }
-  }
+  },
 );
 
 // Get user order's
@@ -41,10 +43,12 @@ export const getUserOrders = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || error.message || "Something went wrong"
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong",
       );
     }
-  }
+  },
 );
 
 // Get single order
@@ -57,10 +61,12 @@ export const getSingleOrder = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || error.message || "Something went wrong"
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong",
       );
     }
-  }
+  },
 );
 
 const orderSlice = createSlice({

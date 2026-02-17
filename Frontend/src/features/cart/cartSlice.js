@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/api/v1",
+  baseURL: `${import.meta.env.VITE_API_URL}/api/v1`,
   withCredentials: true, // ✔ MUST be here
   headers: {
     "Cache-Control": "no-cache",
@@ -27,10 +27,12 @@ export const addItemToCart = createAsyncThunk(
       };
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || error.message || "Something went wrong"
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong",
       );
     }
-  }
+  },
 );
 
 const cartSlice = createSlice({
@@ -62,7 +64,7 @@ const cartSlice = createSlice({
 
     editItemInCart: (state, action) => {
       const item = state.cartItems.find(
-        (item) => item.productId === action.payload.productId
+        (item) => item.productId === action.payload.productId,
       );
 
       if (item) item.quantity = action.payload.quantity;
@@ -92,12 +94,12 @@ const cartSlice = createSlice({
         const newItem = action.payload;
 
         const existingItem = state.cartItems.find(
-          (i) => i.productId === newItem.productId
+          (i) => i.productId === newItem.productId,
         );
         if (existingItem) {
           existingItem.quantity = Math.min(
             existingItem.quantity + newItem.quantity,
-            newItem.stock
+            newItem.stock,
           );
           state.message = `${action.payload.name} quantity updated in cart !`;
         } else {

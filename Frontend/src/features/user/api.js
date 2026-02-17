@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create Axios instance
 const api = axios.create({
-  baseURL: "/api/v1", // your backend base URL
+  baseURL: `${import.meta.env.VITE_API_URL}/api/v1`,
   withCredentials: true, // send cookies automatically
   headers: {
     "Cache-Control": "no-cache",
@@ -74,7 +74,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

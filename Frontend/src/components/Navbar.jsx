@@ -41,7 +41,7 @@ function Navbar({ search, cartIconHide }) {
         <div className="navbar-container">
 
           <div className="navbar-logo">
-            <Link to="/" onClick={() => setIsMenuOpen(false)}>ShopEasy</Link>
+            <Link to="/" onClick={() => setIsMenuOpen(false)}>CartNova</Link>
           </div>
 
           < div className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
@@ -62,7 +62,7 @@ function Navbar({ search, cartIconHide }) {
               <li>
                 <NavLink to="/about-us"
                   className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-                  About Us
+                  About
                 </NavLink>
               </li>
               <li>

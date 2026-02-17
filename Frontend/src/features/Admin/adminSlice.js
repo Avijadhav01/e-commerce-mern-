@@ -22,10 +22,10 @@ export const createProduct = createAsyncThunk(
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while creating product"
+          "Error while creating product",
       );
     }
-  }
+  },
 );
 
 export const fetchAdminProducts = createAsyncThunk(
@@ -44,10 +44,10 @@ export const fetchAdminProducts = createAsyncThunk(
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while fetching products"
+          "Error while fetching products",
       );
     }
-  }
+  },
 );
 
 export const updateProduct = createAsyncThunk(
@@ -56,7 +56,7 @@ export const updateProduct = createAsyncThunk(
     try {
       const { data } = await api.put(
         `/products/admin/product/${productId}`,
-        formData
+        formData,
       );
       // console.log("Update Backend responce: ", data);
       return data.data;
@@ -64,10 +64,10 @@ export const updateProduct = createAsyncThunk(
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while updating product"
+          "Error while updating product",
       );
     }
-  }
+  },
 );
 
 export const deleteProduct = createAsyncThunk(
@@ -81,10 +81,10 @@ export const deleteProduct = createAsyncThunk(
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while deleting product"
+          "Error while deleting product",
       );
     }
-  }
+  },
 );
 
 //  User Related work
@@ -105,10 +105,10 @@ export const fetchUsers = createAsyncThunk(
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while fetching users"
+          "Error while fetching users",
       );
     }
-  }
+  },
 );
 
 export const deleteUser = createAsyncThunk(
@@ -116,16 +116,16 @@ export const deleteUser = createAsyncThunk(
   async (userId, { rejectWithValue }) => {
     try {
       const { data } = await api.delete(`/users/admin/user/${userId}`);
-      console.log("Delete Backend responce: ", data);
+      // console.log("Delete Backend responce: ", data);
       return data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while deleting user"
+          "Error while deleting user",
       );
     }
-  }
+  },
 );
 
 export const updateRole = createAsyncThunk(
@@ -136,18 +136,18 @@ export const updateRole = createAsyncThunk(
         `/users/admin/user/${updateData?.userId}`,
         {
           role: updateData?.role,
-        }
+        },
       );
-      console.log("Update Backend responce: ", data);
+      // console.log("Update Backend responce: ", data);
       return data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while updating userRole"
+          "Error while updating userRole",
       );
     }
-  }
+  },
 );
 
 // Order Related work
@@ -161,16 +161,16 @@ export const fetchOrders = createAsyncThunk(
           limit: query?.limit || 20,
         },
       });
-      console.log("Orders Backend responce: ", data.data.orders);
+      // console.log("Orders Backend responce: ", data.data.orders);
       return data.data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while fetching users"
+          "Error while fetching users",
       );
     }
-  }
+  },
 );
 
 export const deleteOrder = createAsyncThunk(
@@ -178,16 +178,16 @@ export const deleteOrder = createAsyncThunk(
   async (orderId, { rejectWithValue }) => {
     try {
       const { data } = await api.delete(`/orders/admin/${orderId}`);
-      console.log("Delete Backend responce: ", data);
+      // console.log("Delete Backend responce: ", data);
       return data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while deleting order"
+          "Error while deleting order",
       );
     }
-  }
+  },
 );
 
 export const updateOrderStatus = createAsyncThunk(
@@ -204,10 +204,10 @@ export const updateOrderStatus = createAsyncThunk(
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while updating order Status"
+          "Error while updating order Status",
       );
     }
-  }
+  },
 );
 
 export const fetchOrder = createAsyncThunk(
@@ -219,10 +219,12 @@ export const fetchOrder = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || error.message || "Something went wrong"
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong",
       );
     }
-  }
+  },
 );
 
 //  Review Related
@@ -241,7 +243,7 @@ export const getAdminProductReviews = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 export const adminDeleteReview = createAsyncThunk(
@@ -250,12 +252,12 @@ export const adminDeleteReview = createAsyncThunk(
     try {
       // console.log(formData);
       const { data } = await api.delete(`/reviews/admin/${reviewId}`);
-      console.log("Backend Responce", data);
+      // console.log("Backend Responce", data);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 const adminSlice = createSlice({
@@ -575,7 +577,7 @@ const adminSlice = createSlice({
         // REMOVE deleted review
         if (Array.isArray(state.reviews)) {
           state.reviews = state.reviews.filter(
-            (review) => review._id !== action.payload.reviewId
+            (review) => review._id !== action.payload.reviewId,
           );
         }
       })

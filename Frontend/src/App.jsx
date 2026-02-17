@@ -17,7 +17,7 @@ import UpdateProfileForm from "./User/UpdateProfileForm.jsx";
 import UpdatePassword from "./User/UpdatePassword.jsx";
 import ForgotPassword from "./User/ForgotPassword.jsx";
 import ResetPassword from "./User/ResetPassword.jsx";
-import UserDashboard from "./User/userDashboard.jsx";
+import UserDashboard from "./User/UserDashboard.jsx";
 import Cart from "./Cart/Cart.jsx";
 import Shipping from "./Cart/Shipping.jsx";
 import OrderConfirm from "./Cart/OrderConfirm.jsx";

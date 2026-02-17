@@ -25,7 +25,7 @@ export const registerUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 export const logInUser = createAsyncThunk(
@@ -38,7 +38,7 @@ export const logInUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 export const loadUser = createAsyncThunk(
@@ -51,7 +51,7 @@ export const loadUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 export const logoutUser = createAsyncThunk(
@@ -64,7 +64,7 @@ export const logoutUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 // Update
@@ -78,7 +78,7 @@ export const updateProfile = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 export const updatePassword = createAsyncThunk(
@@ -91,7 +91,7 @@ export const updatePassword = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 export const forgotPassword = createAsyncThunk(
@@ -104,7 +104,7 @@ export const forgotPassword = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 export const resetPassword = createAsyncThunk(
@@ -116,14 +116,14 @@ export const resetPassword = createAsyncThunk(
         {
           password: formData.password,
           confirmPassword: formData.confirmPassword,
-        }
+        },
       );
       // console.log("Backend Response:", response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
-  }
+  },
 );
 
 const userSlice = createSlice({
@@ -184,7 +184,7 @@ const userSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(state.user));
       })
       .addCase(logInUser.rejected, (state, action) => {
-        console.log("Login rejected action payload: ", action.payload);
+        // console.log("Login rejected action payload: ", action.payload);
         state.loading = false;
         state.error = action.payload || "Login failed. Pleasr try again later";
         state.user = null;

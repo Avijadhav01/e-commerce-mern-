@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api/v1": {
-        target: "https://e-commerce-backend-bjsk.onrender.com",
+        target: process.env.VITE_API_URL || "http://localhost:4000",
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api\/v1/, "/api/v1"),

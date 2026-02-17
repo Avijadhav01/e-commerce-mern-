@@ -29,9 +29,6 @@ function CartItem({ product }) {
     toast.success("Item removed successfully");
   };
 
-
-
-
   return (
     <div className="cart-item">
       <div className="item-info">

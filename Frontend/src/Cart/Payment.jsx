@@ -24,8 +24,8 @@ function Payment() {
       const { data: paymentOrder } = await dispatch(processPayment(amount)).unwrap();
       const { data: key } = await dispatch(getKey()).unwrap();
 
-      console.log(paymentOrder);
-      console.log(key);
+      // console.log(paymentOrder);
+      // console.log(key);
 
       const productOrderId = order?._id
       const options = {
@@ -35,7 +35,7 @@ function Payment() {
         name: "ShopEasy",
         description: "Ecommerce Website Payment Transaction",
         order_id: paymentOrder?.id,
-        callback_url: `/api/v1/payments/verification?orderId=${productOrderId}`,
+        callback_url: `${import.meta.env.VITE_API_URL}/api/v1/payments/verification?orderId=${productOrderId}`,
         prefill: {
           name: user?.fullName,
           email: user?.email,

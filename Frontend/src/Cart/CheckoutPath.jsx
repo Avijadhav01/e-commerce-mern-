@@ -3,9 +3,6 @@ import "./CartStyles/CheckoutPath.css";
 import { FaTruck } from "react-icons/fa";
 import { BsCreditCardFill, BsCheckCircleFill } from "react-icons/bs";
 
-
-
-
 function CheckoutPath({ activePath }) {
 
   const path = [

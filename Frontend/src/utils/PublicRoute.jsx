@@ -1,3 +1,6 @@
+import { useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
+
 function PublicRoute({ element }) {
 
   const { isAuthenticated, isAuthChecked } =
@@ -17,3 +20,5 @@ function PublicRoute({ element }) {
 
   return element;
 }
+
+export default PublicRoute;

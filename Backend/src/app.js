@@ -17,9 +17,10 @@ const app = express();
 
 app.use(
   cors({
-    origin:
-      "https://e-commerce-frontend-virid-nine.vercel.app" ||
-      "http://localhost:5173", // frontend URL
+    origin: [
+      "http://localhost:5173",
+      "https://e-commerce-frontend-virid-nine.vercel.app",
+    ],
     credentials: true,
   })
 );

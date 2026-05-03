@@ -143,7 +143,7 @@ const login = AsyncHandler(async (req, res) => {
     "-password -refreshToken"
   );
 
-  console.log(`\n${loggedInUser.fullName} logged in successfully !`);
+  // console.log(`\n${loggedInUser.fullName} logged in successfully !`);
 
   return res
     .status(200)
@@ -170,7 +170,7 @@ const logOut = AsyncHandler(async (req, res) => {
     { new: true }
   );
 
-  console.log("\nUser logged out successfully !");
+  // console.log("\nUser logged out successfully !");
 
   // 2️⃣ Clear cookies and send response
   return res

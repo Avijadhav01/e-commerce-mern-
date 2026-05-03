@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://e-commerce-frontend-virid-nine.vercel.app",
+      "https://e-commerce-frontend-xwvz.onrender.com",
     ],
     credentials: true,
   })

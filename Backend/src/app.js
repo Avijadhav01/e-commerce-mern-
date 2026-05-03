@@ -1,4 +1,3 @@
-// server.js or app.js
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -13,42 +12,63 @@ import paymentRouter from "./routes/payment.routes.js";
 
 const app = express();
 
-// ⚡ Middleware
+// ================= ENV =================
+const isProduction = process.env.NODE_ENV === "production";
+
+// ================= CORS =================
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://e-commerce-mern-psi.vercel.app",
+];
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://e-commerce-mern-six-sigma.vercel.app",
-    ],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
 
-// ✅ Parse JSON and URL-encoded payloads
+// ❌ DO NOT ADD app.options("*") → it breaks in latest Express
+
+// ================= MIDDLEWARE =================
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(cookieParser());
 
-// ⚡ Disable caching for all responses
+// Disable caching
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store");
   next();
 });
 
-// 🧭 Routes
+// ================= ROUTES =================
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/payments", paymentRouter);
 
-// ⚠️ 404 handler (unknown routes)
-app.use((req, res, next) => {
+// ================= 404 =================
+app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
 
-// ⚠️ Error middleware (last)
+// ================= ERROR =================
 app.use(errorMiddleware);
 
+// ================= COOKIE OPTIONS =================
+export const cookieOptions = {
+  maxAge: 3 * 24 * 60 * 60 * 1000, // 3 days
+  httpOnly: true,
+  secure: isProduction, // true only in production
+  sameSite: isProduction ? "none" : "lax",
+};
+
+// ================= EXPORT =================
 export { app };

@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://e-commerce-frontend-xwvz.onrender.com",
+      "https://e-commerce-mern-six-sigma.vercel.app",
     ],
     credentials: true,
   })

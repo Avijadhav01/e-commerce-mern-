@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api/v1": {
-        target: process.env.VITE_API_URL || "http://localhost:4000",
+        target: process.env.BACKEND_URL || "http://localhost:4000",
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api\/v1/, "/api/v1"),

@@ -32,7 +32,7 @@ function Payment() {
         name: "CartNova",
         description: "Ecommerce Website Payment Transaction",
         order_id: paymentOrder?.id,
-        callback_url: `${import.meta.env.VITE_API_URL}/api/v1/payments/verification?orderId=${productOrderId}`,
+        callback_url: `${import.meta.env.BACKEND_URL}/api/v1/payments/verification?orderId=${productOrderId}`,
         prefill: {
           name: user?.fullName,
           email: user?.email,

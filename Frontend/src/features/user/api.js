@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create Axios instance
 const api = axios.create({
-  baseURL: `${import.meta.env.BACKEND_URL}/api/v1`,
+  baseURL: `${import.meta.env.VITE_BACKEND_URL}/api/v1`,
   withCredentials: true, // send cookies automatically
   headers: {
     "Cache-Control": "no-cache",
